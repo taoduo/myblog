@@ -1,2 +1,2 @@
 # My Blog
-It can be viewed on [duotao.space](duotao.space).
+It can be viewed on [www.duotao.space](http://www.duotao.space).
