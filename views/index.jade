@@ -1,0 +1,149 @@
+extends layout
+
+block content
+    #wrapper
+      #header-wrapper
+        #header
+          #logo
+            h1
+              a(href='#') Duo Tao's Blog 
+            p
+              | A 
+              a(href='http://www.carleton.edu', rel='nofollow') Carleton College
+              |  {{classyear}}
+      // end #header
+      #menu(ng-controller='menuController')
+        ul
+          li(ng-class="{'current_page_item' : content === 'home'}")
+            a(ng-click="switchContent('home')") Home
+          li(ng-class="{'current_page_item' : content === 'blog'}")
+            a(ng-click="switchContent('blog')") Blog
+          li(ng-class="{'current_page_item' : content === 'about'}")
+            a(ng-click="switchContent('about')") About
+          li(ng-class="{'current_page_item' : content === 'contact'}")
+            a(ng-click="switchContent('contact')") Contact
+      // end #menu
+      #page
+        #page-bgtop
+          #page-bgbtm
+            #content(ng-if="content === 'home'")
+              .post
+                h2.title
+                  a(href='#') This is the first big news
+                p.meta
+                  | Posted by 
+                  a(href='#') Duo
+                  |  on April 18, 2016
+                  | 							 •  
+                  a.comments(href='#') Comments (999+)
+                  |   •  
+                  a.permalink(href='#') Full article
+                .entry
+                  p
+                    img.alignleft.border(src='/images/personal_pic.jpg', width='186', height='186', alt='')
+                    | This is the 
+                    em first firstfirstfirstfirstfirstfirstfirstfirstfirst paragraph.first firstfirstfirstfirstfirstfirstfirstfirstfirst paragraph.first firstfirstfirstfirstfirstfirstfirstfirstfirst paragraph.
+                  p
+                    | This is the 
+                    b second paragraph.
+              div(style='clear: both;')  
+            #blog(ng-if="content === 'blog'")
+              .post
+                h2.title
+                  a(href='#') Phasellus pellentesque turpis 
+                p.meta
+                  | Posted by 
+                  a(href='#') Someone
+                  |  on November 8, 2011
+                  | 							 •  
+                  a.comments(href='#') Comments (64)
+                  |   •  
+                  a.permalink(href='#') Full article
+                .entry
+                  p
+                    img.alignleft.border(src='/images/img03.jpg', width='186', height='186', alt='')
+                    | Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc. Donec ipsum. Proin imperdiet est. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc.
+            #about(ng-if="content === 'about'", ng-controller='aboutController')
+              .post
+                h2.title
+                  a(href='#') About Me 
+                p A CS / Physics Major At Carleton College
+                .entry
+                  p
+                    img.alignleft.border(src='/images/personal_pic_edges.jpg', width='200', height='186', alt='', ng-if='!real', ng-click='toggleImg()', style='cursor:pointer')
+                    img.alignleft.border(src='/images/personal_pic.jpg', width='200', height='186', alt='', ng-if='real', ng-click='toggleImg()', style='cursor:pointer')
+                    | 								Hey there. My name is Duo Tao and I'm a {{classyear | lowercase}} at Carleton College. I study Computer Science and physics. I am very interested in integrating different techonologies and create new things. Currently I am looking at Virtual Reality, Internet of Things and Artificial Intelligence. I also have strong interests in general electronics and visual recognization.
+            #contact(ng-if="content === 'contact'", ng-controller='contactController', ng-init='initMap()')
+              .post
+                h2.title
+                  a(href='#') Contact Me 
+                .entry
+                  ul
+                    li
+                      b Email
+                      | : taod@carleton.edu
+                    li
+                      b Address
+                      | : 300 North College Street, Northfield, MN, USA 55057
+                  #map
+            // end #content
+            #sidebar
+              ul
+                li
+                  h2 Blogger's Word
+                  p
+                    | Hey! I am Duo Tao. I am a friendly, active and cordial person. I am a {{classyear | lowercase}} at Carleton College right now and I major in Physics and Computer Science: I love Cool Techonologies! I also enjoy Trianthon and Basketball in my free time.
+                li
+                  h2 Recent Posts
+                  ul
+                    li
+                      a(href='#') Aliquam libero
+                    li
+                      a(href='#') Consectetuer adipiscing elit
+                    li
+                      a(href='#') Metus aliquam pellentesque
+                    li
+                      a(href='#') Suspendisse iaculis mauris
+                    li
+                      a(href='#') Urnanet non molestie semper
+                    li
+                      a(href='#') Proin gravida orci porttitor
+                li
+                  h2 Github Repos
+                  ul
+                    li
+                      a(href='https://github.com/taoduo/LineDetection') Line Detector
+                      p Visual Recognization
+                    li
+                      a(href='https://github.com/CarletonDevX/textbook-exchange') Textbook Exchange
+                      p Website for textbooks
+                    li
+                      a(href='https://github.com/taoduo/lyrproj') Celebrity Net Worth
+                      p Website, data entry UI
+                    li
+                      a(href='https://github.com/taoduo/mywebsite') My Application Collections
+                      p All my apps
+                    li
+                      a(href='https://github.com/taoduo/QtSongWriter') Midi Track Writer
+                      p C++ Song writing software
+                    li
+                      a(href='https://github.com/taoduo/AdvertisementClickCounter') Ad Click Counter
+                      p Hadoop MapReduce Demo
+                    li
+                      a(href='https://github.com/taoduo/RoboticArmWithInternetOfThings') IoT Robotic Arm
+                      p Arduino, arm with IoT I/O
+                    li
+                      a(href='https://github.com/taoduo/3DImmersiveAudio') 3D sound navigator
+                      p VR project to guide the blind with audio
+                    li
+                      a(href='https://github.com/xxf1995/xxf1995.github.io') Zombie Forest
+                      p A VR survival game made
+            // end #sidebar
+            div(style='clear: both;')  
+      // end #page
+    #footer
+      p
+        | © Untitled. All rights reserved. Design by 
+        a(href='http://templated.co', rel='nofollow') TEMPLATED
+        | .
+    // end #footer
