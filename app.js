@@ -4,9 +4,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var routes = require('./routes/index');
-
+var passport = require('passport');
+var expressSession = require('express-session');
+var User = require('./models/user');
+var flash = require('connect-flash');
+var mongoose = require('mongoose');
+// get the environment configs
+require('dotenv').config();
+mongoose.connect(process.env.DB_LINK);
 var app = express();
 
 // view engine setup
@@ -20,6 +26,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Configuring Passport
+app.use(expressSession({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+ // Using the flash middleware provided by connect-flash to store messages in session
+ // and displaying in templates
+app.use(flash());
+// Initialize Passport
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+var routes = require('./routes/index')(passport);
 
 app.use('/', routes);
 
