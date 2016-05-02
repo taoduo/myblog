@@ -1,0 +1,20 @@
+ul
+  li(ng-class="{'current_page_item' : content === 'home'}")
+    a(ng-click="switchContent('home')") Home
+  li(ng-class="{'current_page_item' : content === 'blog'}")
+    a(ng-click="switchContent('blog')") Blog
+  li(ng-class="{'current_page_item' : content === 'about'}")
+    a(ng-click="switchContent('about')") About
+  li(ng-class="{'current_page_item' : content === 'contact'}")
+    a(ng-click="switchContent('contact')") Contact
+  li.pull-right(ng-show="currentUser.role === 'administrator'")
+    a(type='button' href='/blogPost') Post
+  li.pull-right
+    a(ng-if='!currentUser' type='button' data-toggle="modal" data-target="#logIn")
+      | Login
+    a(ng-if='currentUser' type='button' data-toggle="modal" data-target="#userDashboard")
+      | {{currentUser.username}}
+  li.pull-right(ng-show="!currentUser")
+    a(type='button' data-toggle="modal" data-target="#signUp") Sign Up
+  li.pull-right(ng-show="currentUser")
+    a(type='button' ng-click='logout()') Logout

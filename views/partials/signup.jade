@@ -1,0 +1,38 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      button.close(type='button', data-dismiss='modal') ×
+      h4.modal-title Sign Up
+    .modal-body
+      form.form-horizontal(name='signupForm')
+        fieldset
+          // Text input
+          .form-group
+            label.col-md-4.control-label(for='signupEmail') Email
+            .col-md-4
+              input#signupEmail.form-control.input-md(name='signupEmail', type='email', ng-model='signup.email' required)
+              span.errMsg(ng-show='signupForm.signupEmail.$invalid && signupForm.signupEmail.$touched') Invalid Email
+
+          // Password input
+          .form-group
+            label.col-md-4.control-label(for='signupPassword') Password
+            .col-md-4
+              input#signupPassword.form-control.input-md(name='signupPassword', type='password', ng-model='signup.password' required)
+              span.errMsg(ng-show='signupForm.signupPassword.$invalid && signupForm.signupPassword.$touched') Invalid Password
+          // Password input
+          .form-group
+            label.col-md-4.control-label(for='signupPasswordConfirm') Confirm Password
+            .col-md-4
+              input#signupPasswordConfirm.form-control.input-md(name='signupPasswordConfirm', type='password', ng-model='signup.passwordConfirm', required)
+              span.errMsg(ng-show='(signupForm.signupPasswordConfirm.$invalid || !(signup.password == signup.passwordConfirm)) && signupForm.signupPasswordConfirm.$touched') Invalid Password Confirm
+          // Text input
+          .form-group
+            label.col-md-4.control-label(for='signupUserName') User Name
+            .col-md-4
+              input#signupUserName.form-control.input-md(name='signupUserName', type='text' ng-model='signup.username' required)
+              span.errMsg(ng-show='signupForm.signupUserName.$invalid && signupForm.signupUserName.$touched') Empty Username
+              span.help-block The name to use in public
+    .modal-footer
+      button.btn.btn-default(type='button', data-dismiss='modal') Close
+      input.btn.btn-success(type='submit', ng-click='submit()' ng-disabled='signupForm.$invalid || !(signup.password == signup.passwordConfirm)' value='Sign Up')
+      p.errMsg {{signupMsg}}

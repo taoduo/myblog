@@ -1,0 +1,23 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      button.close(type='button', data-dismiss='modal') ×
+      h4.modal-title Login
+    .modal-body
+      form.form-horizontal(name='loginForm')
+        // Text input
+        .form-group
+          label.col-md-4.control-label(for='loginEmail') Email
+          .col-md-4
+            input#loginEmail.form-control.input-md(name='loginEmail' type='email' ng-model='login.email' required)
+            span.errMsg(ng-show='loginForm.loginEmail.$invalid && loginForm.loginEmail.$touched') Invalid Email
+        // Password input
+        .form-group
+          label.col-md-4.control-label(for='loginPassword') Password
+          .col-md-4
+            input#loginPassword.form-control.input-md(name='loginPassword' type='password' ng-model='login.password' required)
+            span.errMsg(ng-show='loginForm.loginPassword.$invalid && loginForm.loginPassword.$touched') Empty Password:{{login.password}}
+    .modal-footer
+      button.btn.btn-default(type='button', data-dismiss='modal') Close
+      button.btn.btn-success(type='button' ng-disabled='loginForm.$invalid' ng-click="submit()") Login
+      p.errMsg {{loginMsg}}

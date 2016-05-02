@@ -1,4 +1,7 @@
 var express = require('express');
+var app = express();
+global.__public = __dirname + '/public/';
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -7,13 +10,12 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var passport = require('passport');
 var expressSession = require('express-session');
-var User = require('./models/user');
+var User = require(__public + 'models/user');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
 // get the environment configs
 require('dotenv').config();
 mongoose.connect(process.env.DB_LINK);
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,9 +45,10 @@ var initPassport = require('./passport/init');
 initPassport(passport);
 
 var routes = require('./routes/index')(passport);
+var blogPost = require('./routes/blogPost')(passport);
 
 app.use('/', routes);
-
+app.use('/blogPost', blogPost);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

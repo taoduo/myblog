@@ -1,0 +1,14 @@
+.modal-dialog
+  .modal-content
+    .modal-header
+      button.close(type='button', data-dismiss='modal') ×
+      h4.modal-title {{currentUser.username}}
+    .modal-body
+      ul
+        li
+          | Email: {{currentUser.email}}
+        li
+          | Id: {{currentUser._id}}
+    .modal-footer
+      button.btn.btn-default(type='button', data-dismiss='modal') Close
+      button.btn.btn-warning(type='button', data-dismiss='modal' ng-click='logout()') Logout

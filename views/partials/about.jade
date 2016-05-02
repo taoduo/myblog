@@ -1,0 +1,9 @@
+.post
+  h2.title
+    a(href='#') About Me 
+  p A CS / Physics Major At Carleton College
+  .entry
+    p
+      img.alignleft.border(src='/images/personal_pic_edges.jpg', width='200', height='186', alt='', ng-if='!real', ng-click='toggleImg()', style='cursor:pointer')
+      img.alignleft.border(src='/images/personal_pic.jpg', width='200', height='186', alt='', ng-if='real', ng-click='toggleImg()', style='cursor:pointer')
+      |                               Hey there. My name is Duo Tao and I'm a {{classyear | lowercase}} at Carleton College. I study Computer Science and physics. I am very interested in integrating different techonologies and create new things. Currently I am looking at Virtual Reality, Internet of Things and Artificial Intelligence. I also have strong interests in general electronics and visual recognization.

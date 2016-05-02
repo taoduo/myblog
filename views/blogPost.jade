@@ -1,0 +1,21 @@
+extends postLayout
+
+block content
+  h1 Author: #{currentUser.username}
+  form.form-horizontal(ng-controller='postController')
+      fieldset
+        // Text input
+        .form-group
+          label.col-md-1.control-label(for='title') Title
+          .col-md-6
+            input#title.form-control.input-md(name='title', type='text', placeholder='', required, ng-model='post.title')
+        // Textarea
+        .form-group
+          label.col-md-1.control-label(for='content') Content
+          .col-md-6
+            textarea#content.form-control(style='width:100%;', name='content' rows='10', ng-model='post.content')
+        // Button
+        .form-group
+          label.col-md-1.control-label(for='submit')
+          .col-md-6
+            button#submit.btn.btn-success(name='submit' ng-click='submit()') Submit
