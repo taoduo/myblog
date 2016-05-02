@@ -33,7 +33,7 @@ module.exports = function(passport) {
         throw err;
       }
       res.send(post);
-    }).limit(10);
+    }).sort({date:-1}).limit(10);
   });
 
   router.post('/getBlog', function (req, res) {
@@ -43,7 +43,7 @@ module.exports = function(passport) {
         throw err;
       }
       res.send(post);
-    }).limit(20);
+    }).sort({date:-1}).limit(20);
   });
 
   /* Handle Login POST */
