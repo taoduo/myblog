@@ -121,7 +121,7 @@ module.exports = function(passport) {
         throw err;
       }
       res.send(location);
-    }).sort({date:-1}).limit(10)
+    }).sort({time:-1}).limit(10)
   });
   return router;
 }
