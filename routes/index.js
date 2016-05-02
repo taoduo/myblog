@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require(__public + 'models/user.js');
 var bCrypt = require('bcrypt-nodejs');
+var Post = require(__public + 'models/post.js')
 
 // Generates hash using bCrypt
 var createHash = function(password) {
@@ -23,6 +24,26 @@ module.exports = function(passport) {
     } else {
       res.render('index', {currentUser: 'null'});
     }
+  });
+
+  router.post('/getHomeBlog', function (req, res) {
+    Post.find({'home':true}, function (err, post) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      res.send(post);
+    }).limit(10);
+  });
+
+  router.post('/getBlog', function (req, res) {
+    Post.find({}, function (err, post) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      res.send(post);
+    }).limit(20);
   });
 
   /* Handle Login POST */

@@ -7,6 +7,12 @@ app.run(function($rootScope, $http) {
             $rootScope.currentUser = null;
         });
     }
+    $http.post('/getHomeBlog').then(function success(response) {
+        $rootScope.homepost = response.data;
+    });
+    $http.post('/getBlog').then(function sucess(response) {
+        $rootScope.blogs = response.data;
+    });
 });
 
 app.controller('menuController', function($scope, $rootScope) {

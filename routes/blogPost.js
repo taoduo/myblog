@@ -23,13 +23,14 @@ module.exports = function(passport) {
     newPost.content = req.body.content;
     newPost.date = new Date();
     newPost.author = req.user;
+    newPost.home = req.body.home;
+
     newPost.save(function(err) {
       if (err){
           console.log('some err');
           console.log('Error in Saving post: ' + err);  
           throw err;  
       }
-      console.log('123')
       res.send("New Blog Posted!");
     });
   });
