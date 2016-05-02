@@ -1,31 +1,15 @@
-.post
+.post(ng-repeat='p in blogs')
   h2.title
-    a(href='#') Phasellus pellentesque turpis 
+    a(href='#') {{p.title}}
   p.meta
     | Posted by 
-    a(href='#') Someone
-    |  on November 8, 2011
+    a(href='#') {{p.author.username}}
+    |  on {{p.date | date : 'fullDate'}}
     | 							 •  
-    a.comments(href='#') Comments (64)
+    a.comments(href='#') Comments (999+)
     |   •  
     a.permalink(href='#') Full article
   .entry
     p
       img.alignleft.border(src='/images/img03.jpg', width='186', height='186', alt='')
-      | Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc. Donec ipsum. Proin imperdiet est. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc.
-
-.post
-  h2.title
-    a(href='#') Phasellus pellentesque turpis 
-  p.meta
-    | Posted by 
-    a(href='#') Someone
-    |  on November 8, 2011
-    |                •  
-    a.comments(href='#') Comments (64)
-    |   •  
-    a.permalink(href='#') Full article
-  .entry
-    p
-      img.alignleft.border(src='/images/img03.jpg', width='186', height='186', alt='')
-      | Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec metus placerat consectetuer. Donec ipsum. Proin imperdiet est. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc. Donec ipsum. Proin imperdiet est. Pellentesque ornare, orci in consectetuer hendrerit, urna elit eleifend nunc.
+      | {{p.content}}
