@@ -28,21 +28,32 @@ app.controller('aboutController', function($scope) {
     }
 });
 
-app.controller('contactController', function($scope, $rootScope) {
+app.controller('contactController', function($scope, $rootScope, $http) {
     $scope.initMap = function() {
         var map;
         var pos = {
             lat: 44.4613092,
             lng: -93.15613380000002
         };
+        $http.get('/location').then(function success(response) {
+            $scope.locations = response.data;
+        });
 
         if (navigator.geolocation) {
             if ($rootScope.currentUser != null && $rootScope.currentUser.email == 'taod@carleton.edu') {
+                // I myself
                 navigator.geolocation.getCurrentPosition(function(position) {
                     pos = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
+                    $http.post('/location', pos).then(function success(response) {
+                        if (response.data == 'success') {
+                            console.log('New position ' + pos + ' added');
+                        } else {
+                            console.log(response.data);
+                        }
+                    });
                     map = new google.maps.Map(document.getElementById('map'), {
                         center: pos,
                         zoom: 9
@@ -57,9 +68,10 @@ app.controller('contactController', function($scope, $rootScope) {
                     });
                     var infoWindow = new google.maps.InfoWindow({map: map});
                     infoWindow.setPosition(pos);
-                    infoWindow.setContent('<b>Hi, ' + $rootScope.currentUser.username + 'I was HERE!</b>');
+                    infoWindow.setContent('<b> I was HERE!</b>');
                 });
-            } else {
+            } else if ($rootScope.currentUser == null) {
+                // stranger
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: pos,
                     zoom: 9
@@ -67,6 +79,15 @@ app.controller('contactController', function($scope, $rootScope) {
                 var infoWindow = new google.maps.InfoWindow({map: map});
                 infoWindow.setPosition(pos);
                 infoWindow.setContent('<b>Hi, visitor! I am here!</b>');
+            } else {
+                // register user
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: pos,
+                    zoom: 9
+                });
+                var infoWindow = new google.maps.InfoWindow({map: map});
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('<b>Hi, ' + $rootScope.currentUser.username + 'I am HERE!</b>');
             }
             
         }

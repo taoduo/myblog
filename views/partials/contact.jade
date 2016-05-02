@@ -10,3 +10,16 @@
         b Address
         | : 300 North College Street, Northfield, MN, USA 55057
     #map
+    h3 Where I was
+    hr
+    table.table
+      thead
+        tr
+          th Time
+          th Location
+      tbody
+        tr(ng-repeat='l in locations')
+          td
+            | {{l.time | date : 'medium'}}
+          td
+            | {{l.lat}}, {{l.lng}}

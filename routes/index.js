@@ -4,17 +4,22 @@ var mongoose = require('mongoose');
 var User = require(__public + 'models/user.js');
 var bCrypt = require('bcrypt-nodejs');
 var Post = require(__public + 'models/post.js')
-
+var Loc = require(__public + 'models/location.js')
 // Generates hash using bCrypt
 var createHash = function(password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+}
+
+var isAuthenticated = function (req, res, next) {
+  if (req.isAuthenticated())
+    return next();
+  res.redirect('/');
 }
 
 module.exports = function(passport) {
   /* GET login page. */
   router.get('/', function(req, res) {
     if (req.isAuthenticated()) {
-      console.log('authenticated user!!')
       var userToSend = {};
       userToSend.email = req.user.email;
       userToSend.username = req.user.username;
@@ -23,7 +28,6 @@ module.exports = function(passport) {
       var userInString = JSON.stringify(userToSend);
       res.render('index', {currentUser: userInString});
     } else {
-      console.log('UNauthenticated user!!')
       res.render('index', {currentUser: 'null'});
     }
   });
@@ -83,6 +87,41 @@ module.exports = function(passport) {
         res.send(info);
       }
      })(req, res);
+  });
+
+  router.post('/location', isAuthenticated, function(req, res) {
+    if (!req.session.loc) {
+      var newPos = req.body;
+      var newLoc = new Loc();
+      newLoc.lat = newPos.lat;
+      newLoc.lng = newPos.lng;
+      newLoc.time = new Date();
+      req.session.loc = newLoc;
+      if (newPos.comment) {
+        newLoc.comment = newPos.comment;
+      } else {
+        newLoc.comment = '';
+      }
+      newLoc.save(function(err) {
+        if (err){
+          console.log('Error in Saving Location: ' + err);  
+          throw err;  
+        }
+        res.send('success');
+      });
+    } else {
+      res.send('Already had the position!');
+    }
+  });
+
+  router.get('/location', function(req, res) {
+    Loc.find({}, function(err, location) {
+      if (err) {
+        console.log(err);
+        throw err;
+      }
+      res.send(location);
+    }).sort({date:-1}).limit(10)
   });
   return router;
 }
