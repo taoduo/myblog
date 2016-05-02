@@ -14,6 +14,7 @@ module.exports = function(passport) {
   /* GET login page. */
   router.get('/', function(req, res) {
     if (req.isAuthenticated()) {
+      console.log('authenticated user!!')
       var userToSend = {};
       userToSend.email = req.user.email;
       userToSend.username = req.user.username;
@@ -22,6 +23,7 @@ module.exports = function(passport) {
       var userInString = JSON.stringify(userToSend);
       res.render('index', {currentUser: userInString});
     } else {
+      console.log('UNauthenticated user!!')
       res.render('index', {currentUser: 'null'});
     }
   });
@@ -69,8 +71,13 @@ module.exports = function(passport) {
   router.post('/signup', function(req, res) {
      passport.authenticate('signup', function(err, user, info) {
       if (user) {
-        console.log(user);
-        res.send(user);
+        req.logIn(user, function() {
+          if (user) {
+            res.send(user);
+          } else {
+            res.send(info);
+          }
+        });
       } else {
         console.log(info);
         res.send(info);

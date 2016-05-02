@@ -28,7 +28,7 @@ app.controller('aboutController', function($scope) {
     }
 });
 
-app.controller('contactController', function($scope) {
+app.controller('contactController', function($scope, $rootScope) {
     $scope.initMap = function() {
         var map;
         var pos = {
@@ -37,27 +37,38 @@ app.controller('contactController', function($scope) {
         };
 
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                };
+            if ($rootScope.currentUser != null && $rootScope.currentUser.email == 'taod@carleton.edu') {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: pos,
+                        zoom: 9
+                    });
+                    var infoWindow = new google.maps.InfoWindow({map: map});
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('<b>I am HERE!</b>');
+                }, function() {
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        center: pos,
+                        zoom: 9
+                    });
+                    var infoWindow = new google.maps.InfoWindow({map: map});
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('<b>Hi, ' + $rootScope.currentUser.username + 'I was HERE!</b>');
+                });
+            } else {
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: pos,
-                    zoom: 4
+                    zoom: 9
                 });
                 var infoWindow = new google.maps.InfoWindow({map: map});
                 infoWindow.setPosition(pos);
-                infoWindow.setContent('<b>I am HERE!</b>');
-            }, function() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: pos,
-                    zoom: 4
-                });
-                var infoWindow = new google.maps.InfoWindow({map: map});
-                infoWindow.setPosition(pos);
-                infoWindow.setContent('<b>I was HERE!</b>');
-            })
+                infoWindow.setContent('<b>Hi, visitor! I am here!</b>');
+            }
+            
         }
     }
 });
@@ -71,6 +82,7 @@ app.controller('signupController', function($scope, $http, $rootScope) {
         $http.post('/signup', $scope.signup).then(function success(response) {
             console.log(response);
             if (response.data.username) {
+                console.log('signup user returned:' + response.data.username);
                 $rootScope.currentUser = response.data;
                 reset();
                 $('#signUp').modal('hide');
