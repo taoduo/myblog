@@ -1,7 +1,7 @@
 .post(ng-repeat="p in homepost")
   h2.title
     a(href='#')
-      {{p.title}}
+    | {{p.title}}
   p.meta
     | Posted by 
     a(href='#') {{p.author.username}}
@@ -13,5 +13,5 @@
   .entry
     p
       img.alignleft.border(src='/images/personal_pic.jpg', width='186', height='186', alt='')
-      {{p.content}}
+      | {{p.content}}
 div(style='clear: both;')  

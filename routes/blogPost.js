@@ -31,7 +31,7 @@ module.exports = function(passport) {
           console.log('Error in Saving post: ' + err);  
           throw err;  
       }
-      res.send("New Blog Posted!");
+      res.send('Posted!');
     });
   });
   return router;

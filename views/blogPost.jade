@@ -26,4 +26,7 @@ block content
         .form-group
           label.col-md-1.control-label(for='submit')
           .col-md-6
+            a#cancel.btn.btn-danger(name='cancel' href='/' style="margin-right:10px") Cancel
             button#submit.btn.btn-success(name='submit' ng-click='submit()') Submit
+            p.successMsg(ng-if='success') Posted!
+            p.errorMsg(ng-if='error') Error...
