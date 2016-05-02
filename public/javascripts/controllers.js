@@ -35,13 +35,30 @@ app.controller('contactController', function($scope) {
             lat: 44.4613092,
             lng: -93.15613380000002
         };
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: pos,
-            zoom: 4
-        });
-        var infoWindow = new google.maps.InfoWindow({map: map});
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('<b>I am HERE!</b>');
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: pos,
+                    zoom: 4
+                });
+                var infoWindow = new google.maps.InfoWindow({map: map});
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('<b>I am HERE!</b>');
+            }, function() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: pos,
+                    zoom: 4
+                });
+                var infoWindow = new google.maps.InfoWindow({map: map});
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('<b>I was HERE!</b>');
+            })
+        }
     }
 });
 

@@ -6,18 +6,8 @@ ul
                 li
                   h2 Recent Posts
                   ul
-                    li
-                      a(href='#') Aliquam libero
-                    li
-                      a(href='#') Consectetuer adipiscing elit
-                    li
-                      a(href='#') Metus aliquam pellentesque
-                    li
-                      a(href='#') Suspendisse iaculis mauris
-                    li
-                      a(href='#') Urnanet non molestie semper
-                    li
-                      a(href='#') Proin gravida orci porttitor
+                    li(ng-repeat='p in blogs')
+                      a(href='#') {{p.title}}
                 li
                   h2 Github Repos
                   ul
