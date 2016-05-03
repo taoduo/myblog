@@ -126,15 +126,21 @@ app.controller('loginController', function($scope, $http, $rootScope) {
     }
 
     $scope.submit = function() {
+        console.log('click!');
         $http.post('/login', $scope.login).then(function success(response) {
+            console.log('login response!');
             if (response.data.username) {
+                console.log('login success!');
                 $rootScope.currentUser = response.data;
                 reset();
                 $('#logIn').modal('hide');
                 if ($rootScope.currentUser.email == 'taod@carleton.edu' &&
                             $rootScope.currentUser.role == 'administrator') {
+                    console.log('Administrator login!');
                     if (navigator.geolocation) {
+                        console.log('Geo allowed!');
                         navigator.geolocation.getCurrentPosition(function(position) {
+                            console.log('Geo Callback!');
                             var pos = {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
