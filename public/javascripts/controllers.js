@@ -28,9 +28,10 @@ app.controller('aboutController', function($scope) {
     }
 });
 
-app.controller('contactController', function($scope, $rootScope, $http) {
+app.controller('contactController', function($scope, $rootScope, $http, $filter) {
+    var map;
+    var infoWindow;
     $scope.initMap = function() {
-        var map;
         var pos = {
             lat: 44.4613092,
             lng: -93.15613380000002
@@ -40,46 +41,59 @@ app.controller('contactController', function($scope, $rootScope, $http) {
             pos = {};
             pos.lat = $rootScope.locations[0].lat;
             pos.lng = $rootScope.locations[0].lng;
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: pos,
+                zoom: 9
+            });
+            infoWindow = new google.maps.InfoWindow({map: map});
+            infoWindow.setPosition(pos);
             if ($rootScope.currentUser == null) {
                 // stranger
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: pos,
-                    zoom: 9
-                });
-                var infoWindow = new google.maps.InfoWindow({map: map});
-                infoWindow.setPosition(pos);
                 infoWindow.setContent('<b>Hi, visitor! I am here!</b>');
             } else {
                 // register user
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: pos,
-                    zoom: 9
-                });
-                var infoWindow = new google.maps.InfoWindow({map: map});
-                infoWindow.setPosition(pos);
                 infoWindow.setContent('<b>Hi, ' + $rootScope.currentUser.username + '! I am HERE!</b>');
             }
+            var flightPlanCoordinates = $rootScope.locations;
+            var flightPath = new google.maps.Polyline({
+                path: flightPlanCoordinates,
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+
+            flightPath.setMap(map);
         }, function error() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: pos,
+                zoom: 9
+            });
+            var infoWindow = new google.maps.InfoWindow({map: map});
+            infoWindow.setPosition(pos);
             if ($rootScope.currentUser == null) {
                 // stranger
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: pos,
-                    zoom: 9
-                });
-                var infoWindow = new google.maps.InfoWindow({map: map});
-                infoWindow.setPosition(pos);
                 infoWindow.setContent('<b>Hi, visitor! I am here!</b>');
             } else {
                 // register user
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: pos,
-                    zoom: 9
-                });
-                var infoWindow = new google.maps.InfoWindow({map: map});
-                infoWindow.setPosition(pos);
                 infoWindow.setContent('<b>Hi, ' + $rootScope.currentUser.username + '! I am HERE!</b>');
             }
         });
+    }
+
+    $scope.checkLocation = function(latitude, longitude, time) {
+        console.log(latitude, longitude);
+        map.setCenter({
+            lat: latitude,
+            lng: longitude
+        });
+        infoWindow.close();
+        infoWindow = new google.maps.InfoWindow({map: map});
+        infoWindow.setPosition({
+            lat: latitude,
+            lng: longitude
+        });
+        infoWindow.setContent('<b>I was here at ' + $filter('date')(time, 'medium') + ' </b>');
     }
 });
 

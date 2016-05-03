@@ -11,14 +11,13 @@
         | : 300 North College Street, Northfield, MN, USA 55057
     #map
     h3 Where I was
-    hr
-    table.table
+    table.table-hover.table
       thead
         tr
           th Time
           th Location
       tbody
-        tr(ng-repeat='l in locations')
+        tr(ng-repeat='l in locations' ng-click='checkLocation(l.lat, l.lng, l.time)' style='cursor:pointer;')
           td
             | {{l.time | date : 'medium'}}
           td
