@@ -89,29 +89,29 @@ module.exports = function(passport) {
      })(req, res);
   });
 
-  router.post('/location', isAuthenticated, function(req, res) {
-    if (!req.session.loc) {
-      var newPos = req.body;
-      var newLoc = new Loc();
-      newLoc.lat = newPos.lat;
-      newLoc.lng = newPos.lng;
-      newLoc.time = new Date();
-      req.session.loc = newLoc;
-      if (newPos.comment) {
-        newLoc.comment = newPos.comment;
-      } else {
-        newLoc.comment = '';
-      }
-      newLoc.save(function(err) {
-        if (err){
-          console.log('Error in Saving Location: ' + err);  
-          throw err;  
-        }
-        res.send('success');
-      });
+  router.post('/location', function(req, res) {
+    console.log('Post Request received!')
+    var newPos = req.body;
+    var newLoc = new Loc();
+    newLoc.lat = newPos.lat;
+    newLoc.lng = newPos.lng;
+    newLoc.time = new Date();
+    if (newPos.comment) {
+      newLoc.comment = newPos.comment;
     } else {
-      res.send('Already had the position!');
+      newLoc.comment = '';
     }
+    console.log('ready to save the location!')
+    newLoc.save(function(err) {
+      if (err){
+        console.log('Error in Saving Location: ' + err);  
+        res.send("save err");
+        throw err;
+      } else {
+        console.log('save success, ready to send the message!');
+        res.send('success');
+      }
+    });
   });
 
   router.get('/location', function(req, res) {

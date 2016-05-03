@@ -139,28 +139,31 @@ app.controller('loginController', function($scope, $http, $rootScope) {
                     console.log('Administrator login!');
                     if (navigator.geolocation) {
                         console.log('Geo allowed!');
-                        navigator.geolocation.getCurrentPosition(function(position) {
+                        navigator.geolocation.getCurrentPosition(function postPosition(position) {
                             console.log('Geo Callback!');
                             var pos = {
                                 lat: position.coords.latitude,
                                 lng: position.coords.longitude
                             };
-                            $http.post('/location', pos).then(function success(response) {
-                                console.log('location posted!');
+                            $http.post('/location', pos).then(function successCallback(response) {
+                                console.log('The response is ' + response.data);
                                 if (response.data == 'success') {
                                     console.log('New position ' + pos + ' added');
                                 } else {
                                     console.log(response.data);
                                 }
+                                window.location = window.location.protocol + "//" + window.location.host
+                            }, function errorCallback(response) {
+                                console.log("err!");
+                                console.log(response);
+                                window.location = window.location.protocol + "//" + window.location.host
                             });
-                        },function() {
-                            console.log('can\'t get the location.');
                         });
                     } else {
                         console.log('geolocation rejected!');
+                        window.location = window.location.protocol + "//" + window.location.host
                     }
                 }
-                window.location = window.location.protocol + "//" + window.location.host
             } else {
                 $scope.loginMsg = response.data.message;
             }
