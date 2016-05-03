@@ -140,13 +140,18 @@ app.controller('loginController', function($scope, $http, $rootScope) {
                                 lng: position.coords.longitude
                             };
                             $http.post('/location', pos).then(function success(response) {
+                                console.log('location posted!');
                                 if (response.data == 'success') {
                                     console.log('New position ' + pos + ' added');
                                 } else {
                                     console.log(response.data);
                                 }
                             });
+                        },function() {
+                            console.log('can\'t get the location.');
                         });
+                    } else {
+                        console.log('geolocation rejected!');
                     }
                 }
                 window.location = window.location.protocol + "//" + window.location.host
