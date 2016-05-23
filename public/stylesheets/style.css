@@ -38,9 +38,6 @@ p, ul, ol {
 	line-height: 180%;
 }
 
-ul, ol {
-}
-
 a {
 	text-decoration: none;
 	color: #000000;
@@ -54,13 +51,13 @@ iframe.border {
 	border: 6px solid #EEE7DF;
 }
 
-iframe.alignleft {
+.alignleft {
 	float: left;
 	margin-right: 25px;
 }
 
 img.alignright {
-	float: right;
+	float: left;
 }
 
 img.aligncenter {

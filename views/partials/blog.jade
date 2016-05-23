@@ -1,6 +1,7 @@
 .post(ng-repeat='p in blogs')
   h2.title
-    a(href='#') {{p.title}}
+    a(href='#') 
+    | {{p.title}}
   p.meta
     | Posted by 
     a(href='#') {{p.author.username}}
@@ -11,5 +12,5 @@
     a.permalink(href='#') Full article
   .entry
     p
-      img.alignleft.border(src='/images/img03.jpg', width='186', height='186', alt='')
+      iframe.alignleft.border(ng-src="{{p.link | trustUrl}}" width='300' height='300')
       | {{p.content}}
