@@ -1,4 +1,10 @@
 var app = angular.module('mainApp', []);
+app.filter('trustUrl', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+});
+
 app.run(function($rootScope, $http) {
     $rootScope.content = 'home';
     $rootScope.classyear = 'Sophomore';

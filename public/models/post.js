@@ -6,5 +6,6 @@ module.exports = mongoose.model('Post', {
     author: User.schema,
     date: Date,
     content: String,
-    home: Boolean
+    home: Boolean,
+    link: String
 });

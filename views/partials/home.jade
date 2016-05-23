@@ -12,6 +12,7 @@
     a.permalink(href='#') Full article
   .entry
     p
-      img.alignleft.border(src='/images/personal_pic.jpg', width='186', height='186', alt='')
+      iframe.alignleft.border(ng-src="{{p.link | trustUrl}}" width='300' height='300')
+      | {{p.link}}
       | {{p.content}}
 div(style='clear: both;')  

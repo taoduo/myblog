@@ -50,11 +50,11 @@ a:hover {
 	text-decoration: underline;
 }
 
-img.border {
+iframe.border {
 	border: 6px solid #EEE7DF;
 }
 
-img.alignleft {
+iframe.alignleft {
 	float: left;
 	margin-right: 25px;
 }

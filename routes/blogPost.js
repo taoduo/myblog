@@ -24,12 +24,12 @@ module.exports = function(passport) {
     newPost.date = new Date();
     newPost.author = req.user;
     newPost.home = req.body.home;
-
+    newPost.link = req.body.link;
     newPost.save(function(err) {
-      if (err){
-          console.log('some err');
-          console.log('Error in Saving post: ' + err);  
-          throw err;  
+      if (err) {
+        console.log('some err');
+        console.log('Error in Saving post: ' + err);  
+        throw err;
       }
       res.send('Posted!');
     });
