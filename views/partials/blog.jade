@@ -12,5 +12,5 @@
     a.permalink(href='#') Full article
   .entry
     p
-      iframe.alignleft.border(ng-src="{{p.link | trustUrl}}" width='300' height='300')
+      iframe.alignleft.border(ng-if='p.link != null' ng-src="{{p.link | trustUrl}}" width='300' height='300')
       | {{p.content}}
