@@ -1,4 +1,4 @@
-var app = angular.module('mainApp', []);
+var app = angular.module('mainApp', ['ngSanitize']);
 app.filter('trustUrl', function ($sce) {
     return function(url) {
         return $sce.trustAsResourceUrl(url);

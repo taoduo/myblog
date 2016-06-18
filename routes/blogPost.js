@@ -13,14 +13,14 @@ var isAuthenticated = function (req, res, next) {
 module.exports = function(passport) {
   /* GET login page. */
   router.get('/', isAuthenticated, function(req, res) {
-    res.render('blogPost', {currentUser: req.user});   
+    res.render('blogPost', {currentUser: req.user});
   });
 
   /* Handle Login POST */
   router.post('/', isAuthenticated, function(req, res) {
     var newPost = new Post();
     newPost.title = req.body.title;
-    newPost.content = req.body.content;
+    newPost.content = req.body.content.replace('\n', '<br>');
     newPost.date = new Date();
     newPost.author = req.user;
     newPost.home = req.body.home;
@@ -28,7 +28,7 @@ module.exports = function(passport) {
     newPost.save(function(err) {
       if (err) {
         console.log('some err');
-        console.log('Error in Saving post: ' + err);  
+        console.log('Error in Saving post: ' + err);
         throw err;
       }
       res.send('Posted!');
