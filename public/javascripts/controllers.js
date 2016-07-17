@@ -132,7 +132,6 @@ app.controller('loginController', function($scope, $http, $rootScope) {
     }
 
     $scope.submit = function() {
-        console.log('click!');
         $http.post('/login', $scope.login).then(function success(response) {
             console.log('login response!');
             if (response.data.username) {
@@ -142,20 +141,15 @@ app.controller('loginController', function($scope, $http, $rootScope) {
                 $('#logIn').modal('hide');
                 if ($rootScope.currentUser.email == 'taod@carleton.edu' &&
                             $rootScope.currentUser.role == 'administrator') {
-                    console.log('Administrator login!');
                     if (navigator.geolocation) {
-                        console.log('Geo allowed!');
                         navigator.geolocation.getCurrentPosition(function postPosition(position) {
-                            console.log('Geo Callback!');
                             var pos = {
                                 lat: position.coords.latitude,
-                                lng: position.coords.longitude
+                                lng: position.coords.longitude,
+                                comment: "Administrator Login"
                             };
                             $http.post('/location', pos).then(function successCallback(response) {
-                                console.log('The response is ' + response.data);
-                                if (response.data == 'success') {
-                                    console.log('New position ' + pos + ' added');
-                                } else {
+                                if (response.data != 'success') {
                                     console.log(response.data);
                                 }
                                 window.location = window.location.protocol + "//" + window.location.host
@@ -166,7 +160,6 @@ app.controller('loginController', function($scope, $http, $rootScope) {
                             });
                         });
                     } else {
-                        console.log('geolocation rejected!');
                         window.location = window.location.protocol + "//" + window.location.host
                     }
                 }

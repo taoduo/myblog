@@ -16,9 +16,12 @@
         tr
           th Time
           th Location
+          th Comment
       tbody
         tr(ng-repeat='l in locations' ng-click='checkLocation(l.lat, l.lng, l.time)' style='cursor:pointer;')
           td
             | {{l.time | date : 'medium'}}
           td
             | {{l.lat}}, {{l.lng}}
+          td
+            | {{l.comment}}
