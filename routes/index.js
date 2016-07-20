@@ -129,21 +129,40 @@ module.exports = function(passport) {
   router.get('/locationGuess', function(req, res) {
     var lng = req.query.lng;
     var lat = req.query.lat;
-    console.log(lng + ' ' + lat);
     LocRec.aggregate([
-      {$project:
-        {
-          dist: {$sqrt: {$add: [{$pow: [{$subtract: [lng, "$lng"]}, 2]},
-                                {$pow: [{$subtract: [lng, "$lng"]}, 2]}]
-                }}
+      {
+        /* $project: {
+          dist: {
+            $sqrt: {
+              $add: [
+                { $pow: [ { $subtract: [ lng, "$lng" ] }, 2 ] },
+                { $pow: [ { $subtract: [ lng, "$lng" ] }, 2 ] }
+              ]
+            }
+          }
+        } */
+
+        $project: {
+          dist: {
+            $add: [
+              { $multiply: [ { $subtract: [ lng, "$lng" ] }, { $subtract: [ lng, "$lng" ] } ] },
+              { $multiply: [ { $subtract: [ lat, "$lat" ] }, { $subtract: [ lat, "$lat" ] }] }
+            ]
+          }
         }
       },
       {$sort: {dist: 1, recent: -1}},
       {$limit: 1}
     ], function(err, result) {
-      if (result == undefined) {
+      if (err) {
+        console.log(err);
+        res.send("error");
+        return;
+      }
+      if (result.length == 0) {
         res.send("empty");
       } else {
+        console.log(result);
         res.send("result");
       }
     });
