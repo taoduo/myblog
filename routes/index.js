@@ -3,8 +3,10 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require(__public + 'models/user.js');
 var bCrypt = require('bcrypt-nodejs');
-var Post = require(__public + 'models/post.js')
-var Loc = require(__public + 'models/location.js')
+var Post = require(__public + 'models/post.js');
+var Loc = require(__public + 'models/location.js');
+var LocRec = require(__public + 'models/locationRecord.js');
+
 // Generates hash using bCrypt
 var createHash = function(password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
@@ -104,7 +106,7 @@ module.exports = function(passport) {
     console.log('ready to save the location!')
     newLoc.save(function(err) {
       if (err){
-        console.log('Error in Saving Location: ' + err);  
+        console.log('Error in Saving Location: ' + err);
         res.send("save err");
         throw err;
       } else {
@@ -122,6 +124,29 @@ module.exports = function(passport) {
       }
       res.send(location);
     }).sort({time:-1}).limit(10)
+  });
+
+  router.get('/locationGuess', function(req, res) {
+    var lng = req.query.lng;
+    var lat = req.query.lat;
+    console.log(lng + ' ' + lat);
+    LocRec.aggregate([
+      {$project:
+        {
+          dist: {$sqrt: {$add: [{$pow: [{$subtract: [lng, "$lng"]}, 2]},
+                                {$pow: [{$subtract: [lng, "$lng"]}, 2]}]
+                }}
+        }
+      },
+      {$sort: {dist: 1, recent: -1}},
+      {$limit: 1}
+    ], function(err, result) {
+      if (result == undefined) {
+        res.send("empty");
+      } else {
+        res.send("result");
+      }
+    });
   });
   return router;
 }
