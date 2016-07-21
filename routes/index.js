@@ -5,7 +5,7 @@ var User = require(__public + 'models/user.js');
 var bCrypt = require('bcrypt-nodejs');
 var Post = require(__public + 'models/post.js');
 var Loc = require(__public + 'models/location.js');
-var LocRec = require(__public + 'models/locationRecord.js');
+var LocationRecord = require(__public + 'models/locationRecord.js');
 
 // Generates hash using bCrypt
 var createHash = function(password) {
@@ -92,9 +92,10 @@ module.exports = function(passport) {
   });
 
   router.post('/location', function(req, res) {
-    console.log('Post Request received!')
     var newPos = req.body;
     var newLoc = new Loc();
+    newPos.lat = parseFloat(newPos.lat);
+    newPos.lng = parseFloat(newPos.lng);
     newLoc.lat = newPos.lat;
     newLoc.lng = newPos.lng;
     newLoc.time = new Date();
@@ -103,15 +104,64 @@ module.exports = function(passport) {
     } else {
       newLoc.comment = '';
     }
-    console.log('ready to save the location!')
     newLoc.save(function(err) {
       if (err){
         console.log('Error in Saving Location: ' + err);
         res.send("save err");
         throw err;
+      }
+    });
+
+    LocationRecord.aggregate([
+      {
+        $project: {
+          dist: {
+            $add: [
+              { $multiply: [ { $subtract: [ newPos.lng, "$lng" ] }, { $subtract: [ newPos.lng, "$lng" ] } ] },
+              { $multiply: [ { $subtract: [ newPos.lat, "$lat" ] }, { $subtract: [ newPos.lat, "$lat" ] }] }
+            ]
+          }
+        }
+      },
+      {$sort: {dist: 1, recent: -1}},
+      {$limit: 1}
+    ], function(err, result) {
+      console.log('aggregate callback');
+      if (err) {
+        console.log(err);
+        res.send("error");
+        throw err;
+      }
+      if (result.length == 0) {
+        var nr = new LocationRecord();
+        nr.lat = newPos.lat;
+        nr.lng = newPos.lng;
+        nr.comment = newPos.comment;
+        nr.recent = newLoc.time;
+        nr.save(function(err) {
+          if (err) {
+            res.send("error");
+            throw err;
+          }
+          res.send("newrecord");
+        });
       } else {
-        console.log('save success, ready to send the message!');
-        res.send('success');
+        if (result[0].comment != newPos.comment) {
+          var newRec = new LocationRecord();
+          newRec.lat = newPos.lat;
+          newRec.lng = newPos.lng;
+          newRec.comment = newPos.comment;
+          newRec.recent = newLoc.time;
+          newRec.save(function(err) {
+            if (err) {
+              res.send("error");
+              return;
+            }
+            res.send("newrecord");
+          });
+        } else {
+          res.send("record exists");
+        }
       }
     });
   });
@@ -127,9 +177,9 @@ module.exports = function(passport) {
   });
 
   router.get('/locationGuess', function(req, res) {
-    var lng = req.query.lng;
-    var lat = req.query.lat;
-    LocRec.aggregate([
+    var lng = parseFloat(req.query.lng);
+    var lat = parseFloat(req.query.lat);
+    LocationRecord.aggregate([
       {
         /* $project: {
           dist: {
@@ -141,7 +191,6 @@ module.exports = function(passport) {
             }
           }
         } */
-
         $project: {
           dist: {
             $add: [
@@ -157,13 +206,20 @@ module.exports = function(passport) {
       if (err) {
         console.log(err);
         res.send("error");
-        return;
+        throw err;
       }
       if (result.length == 0) {
-        res.send("empty");
+        console.log("empty");
+        res.send("");
       } else {
-        console.log(result);
-        res.send("result");
+        LocationRecord.findById(result[0]._id, function(err, result) {
+          if (err) {
+            console.log(err);
+            throw err;
+          }
+          console.log(result);
+          res.send(result.comment);
+        });
       }
     });
   });
