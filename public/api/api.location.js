@@ -26,7 +26,7 @@ module.exports.postLocation = function(req, res, next) {
   }
 
   newLoc.save(function(err) {
-    if (err){
+    if (err) {
       console.log('Error in Saving Location: ' + err);
       res.send("save err");
       throw err;
@@ -67,6 +67,7 @@ module.exports.checkRecordExistence = function(req, res, next) {
         if (result.comment != newPos.comment) {
           next();
         } else {
+          LocationRecord.update({_id : result[0]._id}, {recent : new Date()});
           res.send("Posted!");
         }
       });
@@ -80,7 +81,7 @@ module.exports.saveRecord = function(req, res) {
   nr.lat = newPos.lat;
   nr.lng = newPos.lng;
   nr.comment = newPos.comment;
-  nr.recent = newLoc.time;
+  nr.recent = new Date();
   nr.save(function(err) {
     if (err) {
       res.send("error");
