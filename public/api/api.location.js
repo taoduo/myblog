@@ -11,7 +11,7 @@ module.exports.getLocation = function(req, res) {
   }).sort({time:-1}).limit(10)
 };
 
-module.exports.postLocation = function(req, res) {
+module.exports.postLocation = function(req, res, next) {
   var newPos = req.body;
   var newLoc = new Loc();
   newPos.lat = parseFloat(newPos.lat);
@@ -35,7 +35,7 @@ module.exports.postLocation = function(req, res) {
   });
 };
 
-module.exports.checkRecordExistence = function(req, res) {
+module.exports.checkRecordExistence = function(req, res, next) {
   var newPos = req.body;
   LocationRecord.aggregate([
     {
@@ -64,7 +64,7 @@ module.exports.checkRecordExistence = function(req, res) {
           console.log(err);
           throw err;
         }
-        if (result[0].comment != newPos.comment) {
+        if (result.comment != newPos.comment) {
           next();
         } else {
           res.send("Posted!");
