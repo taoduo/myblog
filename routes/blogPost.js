@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require(__public + 'models/user.js');
 var Post = require(__public + 'models/post.js');
+var blog = require(__public + 'api/api.blog.js');
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -17,22 +18,6 @@ module.exports = function(passport) {
   });
 
   /* Handle Login POST */
-  router.post('/', isAuthenticated, function(req, res) {
-    var newPost = new Post();
-    newPost.title = req.body.title;
-    newPost.content = req.body.content.replace('\n', '<br>');
-    newPost.date = new Date();
-    newPost.author = req.user;
-    newPost.home = req.body.home;
-    newPost.link = req.body.link;
-    newPost.save(function(err) {
-      if (err) {
-        console.log('some err');
-        console.log('Error in Saving post: ' + err);
-        throw err;
-      }
-      res.send('Posted!');
-    });
-  });
+  router.post('/', isAuthenticated, blog.postBlog);
   return router;
 }
