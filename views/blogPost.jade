@@ -1,36 +1,39 @@
 extends postLayout
 
 block content
-  h1 Author: #{currentUser.username}
-  form.form-horizontal(ng-controller='postController')
-      fieldset
-        // Text input
-        .form-group
-          label.col-md-1.control-label(for='title') Title
-          .col-md-6
-            input#title.form-control.input-md(name='title', type='text', placeholder='', required, ng-model='post.title')
-        // Textarea
-        .form-group
-          label.col-md-1.control-label(for='content') Content
-          .col-md-6
-            textarea#content.form-control(style='width:100%;', name='content' rows='10', ng-model='post.content')
-        .form-group
-          label.col-md-1.control-label(for='link') Video Link
-          .col-md-6
-            input#link.form-control.input-md(name='link', type='text', placeholder='Link to any video, optional', ng-model='post.link')
-        // Multiple Checkboxes
-        .form-group
-          label.col-md-1.control-label(for='home')
-          .col-md-6
-            .checkbox
-              label(for='home')
-                input#home(type='checkbox', name='home', value='1' ng-model='post.home')
-                |       On Home
-        // Button
-        .form-group
-          label.col-md-1.control-label(for='submit')
-          .col-md-6
-            a#cancel.btn.btn-danger(name='cancel' href='/' style="margin-right:10px") Cancel
-            button#submit.btn.btn-success(name='submit' ng-click='submit()') Submit
-            p.successMsg(ng-if='success') Posted!
-            p.errorMsg(ng-if='error') Error...
+  div.container-fluid
+    h1 Author: #{currentUser.username}
+    form.form-horizontal(ng-controller='postController')
+        fieldset
+          // Text input
+          .form-group
+            label.col-md-1.control-label(for='title') Title
+            .col-md-6
+              input#title.form-control.input-md(name='title', type='text', placeholder='', required, ng-model='post.title')
+          // Textarea
+          .form-group
+            label.col-md-1.control-label(for='content') Content
+            .col-md-6
+              textarea#content.form-control(style='width:100%;'  ng-change='refreshPreview()' name='content' rows='10', ng-model='post.content')
+            .col-md-5
+              div(ng-bind-html='contentHtml')
+          .form-group
+            label.col-md-1.control-label(for='link') Video Link
+            .col-md-6
+              input#link.form-control.input-md(name='link', type='text', placeholder='Link to any video, optional', ng-model='post.link')
+          // Multiple Checkboxes
+          .form-group
+            label.col-md-1.control-label(for='home')
+            .col-md-6
+              .checkbox
+                label(for='home')
+                  input#home(type='checkbox', name='home', value='1' ng-model='post.home')
+                  |       On Home
+          // Button
+          .form-group
+            label.col-md-1.control-label(for='submit')
+            .col-md-6
+              a#cancel.btn.btn-danger(name='cancel' href='/' style="margin-right:10px") Cancel
+              button#submit.btn.btn-success(name='submit' ng-click='submit()') Submit
+              p.successMsg(ng-if='success') Posted!
+              p.errorMsg(ng-if='error') Error...

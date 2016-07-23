@@ -1,14 +1,15 @@
-var app = angular.module('mainApp', []);
+var app = angular.module('postApp', ['ngSanitize']);
 var converter = new showdown.Converter();
     // text      = '#hello, markdown!',
     // html      = converter.makeHtml(text);
 app.controller('postController', function($http, $scope) {
+	$scope.contentHtml = "";
 	$scope.submit = function() {
 		$scope.success = false;
 		$scope.error = false;
 		var newPost = {};
 		newPost.title = $scope.post.title;
-	  newPost.content = converter.makeHtml($scope.post.content);
+	  newPost.content = $scope.contentHtml;
 	  console.log(newPost.content);
 	  newPost.home = $scope.post.home;
 	  newPost.link = $scope.post.link;
@@ -21,4 +22,10 @@ app.controller('postController', function($http, $scope) {
 			}
 		});
 	};
+
+	$scope.refreshPreview = function() {
+		console.log($scope.post.content);
+		$scope.contentHtml = converter.makeHtml($scope.post.content);
+
+	}
 });
