@@ -1,7 +1,6 @@
 var app = angular.module('postApp', ['ngSanitize']);
 var converter = new showdown.Converter();
-    // text      = '#hello, markdown!',
-    // html      = converter.makeHtml(text);
+
 app.controller('postController', function($http, $scope) {
 	$scope.contentHtml = "";
 	$scope.submit = function() {

@@ -32,7 +32,11 @@ module.exports.postLocation = function(req, res, next) {
       res.send("save err");
       throw err;
     }
-    next();
+    if (newLoc.comment != 'Administrator Login') {
+      next();
+    } else {
+      res.end();
+    }
   });
 };
 
