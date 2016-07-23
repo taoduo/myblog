@@ -7,7 +7,7 @@ module.exports.getHomeBlog = function (req, res) {
       throw err;
     }
     res.send(post);
-  }).sort({date:-1}).limit(10);
+  }).sort({date:-1}).limit(3);
 };
 
 module.exports.getBlog = function (req, res) {
