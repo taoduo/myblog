@@ -10,7 +10,6 @@ app.controller('postController', function($http, $scope) {
 		var newPost = {};
 		newPost.title = $scope.post.title;
 	  newPost.content = $scope.contentHtml;
-	  console.log(newPost.content);
 	  newPost.home = $scope.post.home;
 	  newPost.link = $scope.post.link;
 		$http.post('/blogPost', newPost).then(function(response) {
@@ -24,8 +23,6 @@ app.controller('postController', function($http, $scope) {
 	};
 
 	$scope.refreshPreview = function() {
-		console.log($scope.post.content);
 		$scope.contentHtml = converter.makeHtml($scope.post.content);
-
 	}
 });
