@@ -1,10 +1,18 @@
 var app = angular.module('mainApp', []);
+var converter = new showdown.Converter();
+    // text      = '#hello, markdown!',
+    // html      = converter.makeHtml(text);
 app.controller('postController', function($http, $scope) {
 	$scope.submit = function() {
-		console.log($scope.post);
 		$scope.success = false;
 		$scope.error = false;
-		$http.post('/blogPost', $scope.post).then(function(response) {
+		var newPost = {};
+		newPost.title = $scope.post.title;
+	  newPost.content = converter.makeHtml($scope.post.content);
+	  console.log(newPost.content);
+	  newPost.home = $scope.post.home;
+	  newPost.link = $scope.post.link;
+		$http.post('/blogPost', newPost).then(function(response) {
 			if (response.data == 'Posted!') {
 				$scope.success = true;
 				window.location = window.location.protocol + "//" + window.location.host

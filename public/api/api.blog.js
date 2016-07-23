@@ -23,7 +23,8 @@ module.exports.getBlog = function (req, res) {
 module.exports.postBlog = function(req, res) {
   var newPost = new Post();
   newPost.title = req.body.title;
-  newPost.content = req.body.content.replace('\n', '<br>');
+  newPost.content = req.body.content;
+  console.log(newPost.content);
   newPost.date = new Date();
   newPost.author = req.user;
   newPost.home = req.body.home;
