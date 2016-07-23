@@ -227,6 +227,11 @@ img.aligncenter {
 	width: 600px;
 	padding: 0px 0px 0px 0px;
 }
+#blog, #about, #contact {
+	float: left;
+	width: 100%;
+	padding: 0px 0px 0px 0px;
+}
 #map {
 	height: 500px;
 }

@@ -31,7 +31,7 @@ block content
             include partials/about
           #contact(ng-if="content === 'contact'", ng-controller='contactController', ng-init='initMap()')
             include partials/contact
-          #sidebar
+          #sidebar(ng-if="content === 'home'")
             include partials/sidebar
           div(style='clear: both;')  
     // end #page
