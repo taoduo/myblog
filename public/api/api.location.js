@@ -110,7 +110,7 @@ module.exports.locationGuess = function(req, res) {
         }
       }
     },
-    {$sort: {dist: 1, recent: -1}},
+    {$sort: {'dist': 1}},
     {$limit: 1}
   ], function(err, result) {
     if (err) {
