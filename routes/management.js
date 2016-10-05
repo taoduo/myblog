@@ -11,6 +11,11 @@ var isAuthenticated = function (req, res, next) {
   res.redirect('/');
 }
 
+/* GET administrator page. */
+router.get('/', isAuthenticated, function(req, res) {
+  res.render('management', {currentUser: req.user});
+});
+
 module.exports = function(passport) {
   /* Handle Login POST */
   router.post('/', isAuthenticated, blog.postBlog);

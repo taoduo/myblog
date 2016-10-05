@@ -33,7 +33,7 @@ app.filter('trustUrl', function ($sce) {
 
 app.run(function($rootScope, $http) {
     $rootScope.content = 'home';
-    $rootScope.classyear = 'Sophomore';
+    $rootScope.classyear = 'Junior';
     $rootScope.logout = function() {
         $http.post('/logout').then(function success(response) {
             $rootScope.currentUser = null;
