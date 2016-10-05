@@ -8,7 +8,7 @@ ul
   li(ng-class="{'current_page_item' : content === 'contact'}")
     a(ng-click="switchContent('contact')") Contact
   li.pull-right(ng-show="currentUser.role === 'administrator'")
-    a(type='button' href='/blogPost') Post
+    a(type='button' href='/administrator') Management
   li.pull-right
     a(ng-if='!currentUser' type='button' data-toggle="modal" data-target="#logIn")
       | Login

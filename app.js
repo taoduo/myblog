@@ -48,6 +48,7 @@ var routes = require('./routes/index')(passport);
 var blogPost = require('./routes/blogPost')(passport);
 
 app.use('/', routes);
+
 app.use('/blogPost', blogPost);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

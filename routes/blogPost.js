@@ -12,11 +12,6 @@ var isAuthenticated = function (req, res, next) {
 }
 
 module.exports = function(passport) {
-  /* GET login page. */
-  router.get('/', isAuthenticated, function(req, res) {
-    res.render('blogPost', {currentUser: req.user});
-  });
-
   /* Handle Login POST */
   router.post('/', isAuthenticated, blog.postBlog);
   return router;

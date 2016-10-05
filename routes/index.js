@@ -30,6 +30,10 @@ module.exports = function(passport) {
       res.render('index', {currentUser: 'null'});
     }
   });
+  /* GET administrator page. */
+  router.get('/administrator', isAuthenticated, function(req, res) {
+    res.render('blogManagement', {currentUser: req.user});
+  });
 
   router.post('/getHomeBlog', blog.getHomeBlog);
 

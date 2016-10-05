@@ -1,0 +1,9 @@
+ul
+  li(ng-class="{'current_page_item' : content === 'overview'}")
+    a(ng-click="switchContent('overview')") Overview
+  li(ng-class="{'current_page_item' : content === 'delete'}")
+    a(ng-click="switchContent('blog')") Delete
+  li(ng-class="{'current_page_item' : content === 'post'}")
+    a(ng-click="switchContent('about')") Post
+  li.pull-right
+    a(type='button' ng-click='logout()') Logout

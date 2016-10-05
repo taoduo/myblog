@@ -1,0 +1,13 @@
+extends indexLayout
+block content
+  #wrapper
+    #header-wrapper
+      #header
+        #logo
+          h1
+            a(href='#') Duo Tao's Blog 
+          p
+            |  Administrator Page
+    // end #header
+    #menu(ng-controller='menuController')
+      include partials/managementMenu
