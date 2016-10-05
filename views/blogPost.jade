@@ -2,7 +2,6 @@ extends indexLayout
 
 block content
   script(src="https://cdn.rawgit.com/showdownjs/showdown/1.4.2/dist/showdown.min.js" crossorigin="anonymous")
-  script(src='/javascripts/postControllers.js', type='text/javascript')
   div.container-fluid(ng-controller='postController')
     h1 Author: #{currentUser.username}
     .row
