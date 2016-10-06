@@ -1,15 +1,29 @@
 extends layout
 block content
-  script(src="https://cdn.rawgit.com/showdownjs/showdown/1.4.2/dist/showdown.min.js" crossorigin="anonymous")
-  script(src='/controllers/manager.js', type='text/javascript')
-  #wrapper
-    #header-wrapper
-      #header
-        #logo
-          h1
-            a(href='#') Duo Tao's Blog 
-          p
-            |  Administrator Page
-    // end #header
-    #menu(ng-controller='menuController')
-      include partials/managementMenu
+  script(src='/modules/management.js')
+  .app-wrapper(ng-app='management')
+    #wrapper
+      #header-wrapper
+        #header
+          #logo
+            h1
+              a(href='#') Duo Tao's Blog 
+            p
+              |  Administrator Page
+      // end #header
+      #menu(ng-controller='menuController')
+        include partials/managementMenu
+      // end #menu
+      #page
+        #page-bgtop
+          #page-bgbtm
+            #content(ng-if="content === 'overview'")
+              include partials/overview
+            #blog(ng-if="content === 'delete'")
+              include partials/delete
+            #about(ng-if="content === 'post'")
+              include partials/post
+            div(style='clear: both;')
+      // end #page
+    #footer
+      include partials/footer

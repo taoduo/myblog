@@ -44,12 +44,11 @@ app.use(flash());
 var initPassport = require('./passport/init');
 initPassport(passport);
 
-var routes = require('./routes/index')(passport);
+var index = require('./routes/index')(passport);
 var management = require('./routes/management')(passport);
-
-app.use('/', routes);
-
+app.use('/', index);
 app.use('/management', management);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

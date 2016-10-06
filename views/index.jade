@@ -1,49 +1,50 @@
 extends layout
 block content
-  script(src='/controllers/index.js', type='text/javascript')
-  #wrapper
-    #header-wrapper
-      #header
-        #logo
-          h1
-            a(href='#') Duo Tao's Blog 
-          p
-            | A 
-            a(href='http://www.carleton.edu', rel='nofollow') Carleton College
-            |  {{classyear}}
-    // end #header
-    #menu(ng-controller='menuController')
-      include partials/menu
-    #logIn.modal.fade(role="dialog" ng-controller="loginController")
-      include partials/login
-    #signUp.modal.fade(role="dialog" ng-controller='signupController')
-      include partials/signup
-    #userDashboard.modal.fade(role='dialog')
-      include partials/userDashboard
-    // end #menu
-    #page
-      #page-bgtop
-        #page-bgbtm
-          h2(style='color:red') Excuse me for the lack of content and incompleteness. My blog is still under construction.
-          #content(ng-if="content === 'home'")
-            include partials/home
-          #blog(ng-if="content === 'blog'")
-            include partials/blog
-          #about(ng-if="content === 'about'", ng-controller='aboutController')
-            include partials/about
-          #contact(ng-if="content === 'contact'", ng-controller='contactController', ng-init='initMap()')
-            include partials/contact
-          #sidebar(ng-if="content === 'home'")
-            include partials/sidebar
-          div(style='clear: both;')  
-    // end #page
-  #footer
-    include partials/footer
-  // end #footer
-  script.
-    var app = angular.module('mainApp');
-    var userStr = "#{currentUser}";
-    var initUser = JSON.parse(userStr.replace(/&quot;/g,'"'));
-    app.run(function($rootScope) {
-      $rootScope.currentUser = initUser;
-    });
+  script(src='/modules/index.js')
+  .app-wrapper(ng-app='index')
+    #wrapper
+      #header-wrapper
+        #header
+          #logo
+            h1
+              a(href='#') Duo Tao's Blog 
+            p
+              | A 
+              a(href='http://www.carleton.edu', rel='nofollow') Carleton College
+              |  {{classyear}}
+      // end #header
+      #menu(ng-controller='menuController')
+        include partials/indexMenu
+      #logIn.modal.fade(role="dialog" ng-controller="loginController")
+        include partials/login
+      #signUp.modal.fade(role="dialog" ng-controller='signupController')
+        include partials/signup
+      #userDashboard.modal.fade(role='dialog')
+        include partials/userDashboard
+      // end #menu
+      #page
+        #page-bgtop
+          #page-bgbtm
+            h2(style='color:red') Excuse me for the lack of content and incompleteness. My blog is still under construction.
+            #content(ng-if="content === 'home'")
+              include partials/home
+            #blog(ng-if="content === 'blog'")
+              include partials/blog
+            #about(ng-if="content === 'about'", ng-controller='aboutController')
+              include partials/about
+            #contact(ng-if="content === 'contact'", ng-controller='contactController', ng-init='initMap()')
+              include partials/contact
+            #sidebar(ng-if="content === 'home'")
+              include partials/sidebar
+            div(style='clear: both;')  
+      // end #page
+    #footer
+      include partials/footer
+    // end #footer
+    script.
+      var app = angular.module('index');
+      var userStr = "#{currentUser}";
+      var initUser = JSON.parse(userStr.replace(/&quot;/g,'"'));
+      app.run(function($rootScope) {
+        $rootScope.currentUser = initUser;
+      });

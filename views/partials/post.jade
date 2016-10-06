@@ -1,0 +1,32 @@
+div.container-fluid(ng-controller='postController')
+  h1 Author: #{currentUser.username}
+  .row
+    .col-md-6(style='box-shadow:10px 10px 5px #888888; border-top:solid 1px #aaaaaa;border-right:solid 1px #aaaaaa; margin:10px;')
+      form.form-horizontal
+        // Text input
+        .form-group
+          label.control-label(for='title') Title
+          input#title.form-control.input-md(name='title', style='width:99%', type='text', placeholder='', required, ng-model='post.title')
+        // Textarea
+        .form-group
+          label.control-label(for='content') Content
+          textarea#content.form-control(style='width:99%; max-width:100%' ng-change='refreshPreview()' name='content' rows='10', ng-model='post.content')
+        .form-group
+          label.control-label(for='link') Video Link
+          input#link.form-control.input-md(name='link', type='text', style='width:99%', placeholder='Link to any video, optional', ng-model='post.link')
+        // Multiple Checkboxes
+        .form-group
+          label.col-md-1.control-label(for='home')
+          .checkbox
+            label(for='home')
+              input#home(type='checkbox', name='home', value='1' ng-model='post.home')
+              |       On Home
+        // Button
+        .form-group
+          a#cancel.btn.btn-danger(name='cancel' href='/' style="margin-right:10px") Cancel
+          button#submit.btn.btn-success(name='submit' ng-click='submit()') Submit
+          p.successMsg(ng-if='success') Posted!
+          p.errorMsg(ng-if='error') Error...
+    .col-md-5
+      label Preview
+      #preiew(style='height:450px;overflow:auto;border-top:solid 1px #aaaaaa;border-left:solid 1px #aaaaaa; box-shadow:10px 10px 5px #888888;' ng-bind-html='contentHtml')

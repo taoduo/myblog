@@ -1,4 +1,4 @@
-var app = angular.module('mainApp', ['ngSanitize']);
+var app = angular.module('index', ['ngSanitize']);
 
 app.filter('trustUrl', function ($sce) {
     return function(url) {
@@ -17,7 +17,7 @@ app.run(function($rootScope, $http) {
     $http.post('/getHomeBlog').then(function success(response) {
         $rootScope.homepost = response.data;
     });
-    $http.post('/getBlog').then(function sucess(response) {
+    $http.post('/getBlog').then(function success(response) {
         $rootScope.blogs = response.data;
     });
 });
