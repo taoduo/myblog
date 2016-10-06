@@ -1,6 +1,6 @@
 extends layout
 block content
-  - var loader = 'index';
+  script(src='/controllers/index.js', type='text/javascript')
   #wrapper
     #header-wrapper
       #header
@@ -18,7 +18,7 @@ block content
       include partials/login
     #signUp.modal.fade(role="dialog" ng-controller='signupController')
       include partials/signup
-    #userDashboard.modal.fade(role='dialog' ng-controller='userDashboardController')
+    #userDashboard.modal.fade(role='dialog')
       include partials/userDashboard
     // end #menu
     #page
