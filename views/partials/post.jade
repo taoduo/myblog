@@ -1,7 +1,7 @@
 div.container-fluid(ng-controller='postController')
   h1 Author: #{currentUser.username}
   .row
-    .col-md-6(style='box-shadow:10px 10px 5px #888888; border-top:solid 1px #aaaaaa;border-right:solid 1px #aaaaaa; margin:10px;')
+    .col-md-6.col-sm-6.col-xs-6.col-lg-6(style='box-shadow:10px 10px 5px #888888; border-top:solid 1px #aaaaaa;border-right:solid 1px #aaaaaa; margin:10px;')
       form.form-horizontal
         // Text input
         .form-group
@@ -27,6 +27,6 @@ div.container-fluid(ng-controller='postController')
           button#submit.btn.btn-success(name='submit' ng-click='submit()') Submit
           p.successMsg(ng-if='success') Posted!
           p.errorMsg(ng-if='error') Error...
-    .col-md-5
-      label Preview
-      #preiew(style='height:450px;overflow:auto;border-top:solid 1px #aaaaaa;border-left:solid 1px #aaaaaa; box-shadow:10px 10px 5px #888888;' ng-bind-html='contentHtml')
+    .col-md-5.col-sm-5.col-xs-5.col-lg-5
+        label Content Preview
+        #preiew(style='min-height:20px;overflow:auto;border-top:solid 1px #aaaaaa;border-left:solid 1px #aaaaaa; box-shadow:10px 10px 5px #888888;' ng-bind-html='contentHtml')
