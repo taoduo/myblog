@@ -1,4 +1,4 @@
-var app = angular.module('management', ['ngRoute']);
+var app = angular.module('management', ['ngRoute', 'ngSanitize']);
 
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
