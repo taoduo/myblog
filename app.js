@@ -49,7 +49,7 @@ var management = require('./routes/management')(passport);
 
 app.use('/', routes);
 
-app.use('/', management);
+app.use('/management', management);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
