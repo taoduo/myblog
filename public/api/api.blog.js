@@ -20,6 +20,16 @@ module.exports.getBlog = function (req, res) {
   }).sort({date:-1}).limit(20);
 };
 
+module.exports.getUserBlog = function(req, res) {
+  Post.find({'author':req.user}, function(err, post) {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+    res.send(post);
+  });
+}
+
 module.exports.postBlog = function(req, res) {
   var newPost = new Post();
   newPost.title = req.body.title;

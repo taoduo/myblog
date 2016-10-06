@@ -1,4 +1,5 @@
 var app = angular.module('management', ['ngRoute', 'ngSanitize']);
+var converter = new showdown.Converter();
 
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
@@ -15,7 +16,6 @@ app.controller('menuController', function($scope, $rootScope) {
   }
 });
 
-var converter = new showdown.Converter();
 app.controller('postController', function($http, $scope) {
 	$scope.contentHtml = "";
 	$scope.submit = function() {
@@ -40,3 +40,9 @@ app.controller('postController', function($http, $scope) {
 		$scope.contentHtml = converter.makeHtml($scope.post.content);
 	}
 });
+
+app.controller('previewController', function($http) {
+	$http.post('/management/getBlogs').then(function(response) {
+		console.log(response);
+	});
+})

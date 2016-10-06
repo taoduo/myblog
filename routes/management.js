@@ -18,5 +18,7 @@ module.exports = function(passport) {
   });
   /* Handle blog post */
   router.post('/post', isAuthenticated, blog.postBlog);
+
+  router.post('/getBlog', isAuthenticated, blog.getUserBlog);
   return router;
 }
