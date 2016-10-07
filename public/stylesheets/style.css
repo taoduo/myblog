@@ -396,3 +396,8 @@ img.aligncenter {
 	color: green;
 	margin-left: 10px;
 }
+
+/* Forms */
+.form-btn-not-last {
+	margin-right:10px;
+}
