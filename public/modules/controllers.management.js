@@ -3,6 +3,10 @@ var converter = new showdown.Converter();
 
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
+	$http.post('/management/getBlogs').then(function(response) {
+		console.log(response.data);
+		$rootScope.blogs = response.data
+	});
 	$rootScope.logout = function() {
 			$http.post('/logout').then(function success(response) {
 					$rootScope.currentUser = null;
@@ -40,9 +44,3 @@ app.controller('postController', function($http, $scope) {
 		$scope.contentHtml = converter.makeHtml($scope.post.content);
 	}
 });
-
-app.controller('previewController', function($http) {
-	$http.post('/management/getBlogs').then(function(response) {
-		console.log(response);
-	});
-})

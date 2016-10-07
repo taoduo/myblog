@@ -42,7 +42,7 @@ module.exports = function(passport) {
 	router.post('/logout', user.logout);
 
   /* Handle Registration POST */
-  router.post('/signup', user.signup);
+  router.post('/signup', user.signup(passport));
 
   router.post('/location', location.postLocation,location.checkRecordExistence, location.saveRecord);
 

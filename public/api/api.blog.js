@@ -21,7 +21,7 @@ module.exports.getBlog = function (req, res) {
 };
 
 module.exports.getUserBlog = function(req, res) {
-  Post.find({'author':req.user}, function(err, post) {
+  Post.find({'author':req.user._id}, function(err, post) {
     if (err) {
       console.log(err);
       throw err;

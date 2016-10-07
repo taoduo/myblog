@@ -1,9 +1,9 @@
 ul
   li(ng-class="{'current_page_item' : content === 'overview'}")
     a(ng-click="switchContent('overview')") Overview
-  li(ng-class="{'current_page_item' : content === 'delete'}")
-    a(ng-click="switchContent('delete')") Delete
   li(ng-class="{'current_page_item' : content === 'post'}")
     a(ng-click="switchContent('post')") Post
+  li(ng-class="{'current_page_item' : content === 'location'}")
+    a(ng-click="switchContent('location')") Locations
   li.pull-right
     a(type='button' ng-click='logout()') Logout
