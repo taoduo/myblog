@@ -1,1 +1,13 @@
 h1 Overview
+table#overview-table.table.table-hover(border='1')
+  tr
+    th Title
+    th Operations
+  tr(ng-repeat='b in blogs')
+    td {{b.title}}
+    td
+      button.btn.btn-default(href='#')
+        | Delete 
+      button.btn.btn-default(href='#')
+        | Edit 
+    

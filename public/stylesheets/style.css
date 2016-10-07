@@ -401,3 +401,12 @@ img.aligncenter {
 .form-btn-not-last {
 	margin-right:10px;
 }
+
+#overview-table .btn{
+	margin-right: 3px;
+}
+
+#overview-table tr:hover {
+	cursor: pointer;
+	background: #eeeeee;
+}
