@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var User = require(__public + 'models/user.js');
 var Post = require(__public + 'models/post.js');
 var blog = require(__public + 'api/api.blog.js');
+var Location = require(__public + 'api/api.location.js');
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -21,8 +22,10 @@ module.exports = function(passport) {
 
   router.post('/getBlogs', isAuthenticated, blog.getUserBlog);
 
-  router.post('/deleteBlog', isAuthenticated, blog.deleteBlog);
+  router.delete('/blog', isAuthenticated, blog.deleteBlog);
 
   router.post('/edit', isAuthenticated, blog.editBlog);
+
+  router.delete('/location', isAuthenticated, Location.deleteLocation);
   return router;
 }

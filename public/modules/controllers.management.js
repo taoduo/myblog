@@ -7,6 +7,12 @@ app.filter('parseMd', function() {
   }
 });
 
+app.filter('formatGeoPos', function() {
+  return function(b) {
+    return b.lat.toPrecision(8) + ", " + b.lng.toPrecision(8);
+  }
+});
+
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
   $rootScope.refreshBlogs = function() {
@@ -67,7 +73,7 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	};
 	$scope.delete = function(id) {
     if (confirm('Delete?')) {
-  		$http.post('/management/deleteBlog', {'id' : id}).then(function(response) {
+  		$http.delete('/management/blog', {'id' : id}).then(function(response) {
         if (response.status == 200) {
           alert('Deleted!');
           $rootScope.refreshBlogs();
@@ -99,6 +105,20 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	}
 });
 
-app.controller('locationController', function($http) {
-
+app.controller('locationController', function($scope, $http) {
+  $scope.locations = [];
+  $scope.getLocations = function() {
+    $http.get('/location').then(function(response) {
+      $scope.locations = response.data;
+    });
+  };
+  $scope.delete = function(id) {
+    console.log(id);
+    $http.delete('/management/location?' + id).then(function(response) {
+      if (response.status == 200) {
+        $scope.getLocations();
+      }
+    });
+  }
+  $scope.getLocations();
 });

@@ -1,1 +1,12 @@
 h1 Locations
+table#location-table.table.table-hover(border='1')
+  tr
+    th Time
+    th Position
+    th Comment
+  tr(ng-repeat='b in locations')
+    td {{b.time}}
+    td {{b | formatGeoPos}}
+    td {{b.comment}}
+      button.btn.btn-default.pull-right(ng-click='delete(b._id)')
+        | Delete 
