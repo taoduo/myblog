@@ -1,9 +1,9 @@
-var Loc = require(__public + 'models/location.js');
+var Location = require(__public + 'models/location.js');
 var LocationRecord = require(__public + 'models/locationRecord.js');
 
 module.exports = {
   getLocation : function(req, res) {
-    Loc.find({}, function(err, location) {
+    Location.find({}, function(err, location) {
       if (err) {
         console.log(err);
         res.status(500).send('Database Error');
@@ -15,7 +15,7 @@ module.exports = {
 
   postLocation : function(req, res, next) {
     var newPos = req.body;
-    var newLoc = new Loc();
+    var newLoc = new Location();
     newPos.lat = parseFloat(newPos.lat);
     newPos.lng = parseFloat(newPos.lng);
     newLoc.lat = newPos.lat;
@@ -42,8 +42,7 @@ module.exports = {
   },
 
   deleteLocation : function(req, res) {
-    console.log(req.params);
-    Location.remove({'_id' : req.body.id}).then(function(err) {
+    Location.findById(req.query.id).remove(function(err) {
       if (err) {
         res.status(500).send('Database Error');
       } else {

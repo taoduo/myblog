@@ -114,7 +114,7 @@ app.controller('locationController', function($scope, $http) {
   };
   $scope.delete = function(id) {
     console.log(id);
-    $http.delete('/management/location?' + id).then(function(response) {
+    $http.delete('/management/location?id=' + id).then(function(response) {
       if (response.status == 200) {
         $scope.getLocations();
       }
