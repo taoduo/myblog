@@ -44,6 +44,9 @@ app.controller('menuController', function($scope, $rootScope) {
 
 app.controller('postController', function($http, $scope) {
 	$scope.contentHtml = "";
+  $scope.closePreview = function() {
+    $('#preview-modal').modal('hide');
+  }
 	$scope.submit = function() {
 		$scope.success = false;
 		$scope.error = false;
@@ -68,6 +71,12 @@ app.controller('postController', function($http, $scope) {
 });
 
 app.controller('overviewController', function($scope, $rootScope, $http) {
+  $scope.closePreview = function() {
+    $('#preview-modal').modal('hide');
+  }
+  $scope.closeEdit = function() {
+    $('#edit-modal').modal('hide');
+  }
 	$scope.edit = function(id) {
     $scope.post = JSON.parse(JSON.stringify($rootScope.findBlog(id)));
 	};

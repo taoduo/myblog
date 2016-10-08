@@ -15,10 +15,10 @@ table#overview-table.table.table-hover(border='1')
   .modal-dialog(role='document')
     .modal-content
       .modal-header
-        button.close(type='button', aria-label='Close', ng-click='edit_modal_close()')
+        button.close(type='button', aria-label='Close', ng-click='closeEdit()')
           span(aria-hidden='true') ×
         h4.modal-title Edit
       .modal-body
         include post
       .modal-footer
-        button.btn.btn-default(type='button', ng-click='edit_modal_close()') Close
+        button.btn.btn-default(type='button', ng-click='closeEdit()') Close
