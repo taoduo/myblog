@@ -59,7 +59,6 @@ app.controller('postController', function($http, $scope) {
 });
 
 app.controller('overviewController', function($scope, $rootScope, $http) {
-	$scope.blogEdit = null;
 	$scope.edit = function(id) {
 		$scope.post = $rootScope.findBlog(id);
 	};
@@ -74,6 +73,11 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	};
 	$scope.edit_modal_close = function() {
 		$('#edit-modal').modal('hide');
+	};
+	$scope.submit = function() {
+		$http.post('/management/edit', $scope.post).then(function(response) {
+			console.log(response);
+		})
 	}
 });
 
