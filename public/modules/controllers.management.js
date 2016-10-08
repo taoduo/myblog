@@ -63,7 +63,9 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 		$scope.post = $rootScope.findBlog(id);
 	};
 	$scope.delete = function(id) {
-		console.log(id);
+		$http.post('/management/delete', id).then(function(response) {
+			console.log(response);
+		});
 	};
 	$scope.refreshPreview = function() {
 		$scope.contentHtml = converter.makeHtml($scope.post.content);
@@ -74,10 +76,11 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	$scope.edit_modal_close = function() {
 		$('#edit-modal').modal('hide');
 	};
+	// edit
 	$scope.submit = function() {
 		$http.post('/management/edit', $scope.post).then(function(response) {
 			console.log(response);
-		})
+		});
 	}
 });
 
