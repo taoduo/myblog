@@ -9,9 +9,11 @@ block content
             h1
               a(href='#') Duo Tao's Blog 
             p
-              | A 
-              a(href='http://www.carleton.edu', rel='nofollow') Carleton College
-              |  {{classyear}}
+              | {{classyear}} at 
+              span 
+                a(href='http://www.carleton.edu', rel='nofollow') Carleton College
+                br
+                | Software developer, Physicist, Algorithmist
       // end #header
       #menu(ng-controller='menuController')
         include partials/indexMenu
