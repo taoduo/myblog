@@ -3,10 +3,31 @@
     a(href='#') About Me 
   p A CS / Physics Major At Carleton College
   .entry
+    .row
+      .col-md-4
+        img.alignleft.border(src='/images/personal_pic_edges.jpg', width='270', height='220', alt='', ng-if='!real', ng-click='toggleImg()', style='cursor:pointer')
+        img.alignleft.border(src='/images/personal_pic.jpg', width='270', height='220', alt='', ng-if='real', ng-click='toggleImg()', style='cursor:pointer')
+      .col-md-8
+        p
+          | Hey there. My name is Duo Tao and I'm a {{classyear | lowercase}} at Carleton College. I study Computer Science and Physics. I do Web Development, and I develop Mac software too. Academically, I am very interested in theoretical computer science like algorithms, databases or basically "how this works". I believe there must be smart ideas behind every awesome technologies, and I want to discover them! Same with physics, it tells me "how things works" in the real world, and there are even more ingenious ideas because of its long history.
+          br 
+          br
+          | During my free time, I practice triathlon, play basketball and read about the wisdom of ancient Chinese. Now I am delving into I Ching and Zhan Guo Ce.
+          br
+          br
+          | If you are looking for professional information, you can download    
+          a(href='https://duosapp.herokuapp.com/DuoTaoResume.pdf') my resume    
+          |, also my
+          a(href='https://www.linkedin.com/in/duo-tao-228916a6')  linkedin.
+
+.post
+  h2.title
+    a(href='#') About duotao.space 
+  p Duo Tao's Blog
+  .entry
     p
-        img.alignleft.border(src='/images/personal_pic_edges.jpg', width='200', height='186', alt='', ng-if='!real', ng-click='toggleImg()', style='cursor:pointer')
-        img.alignleft.border(src='/images/personal_pic.jpg', width='200', height='186', alt='', ng-if='real', ng-click='toggleImg()', style='cursor:pointer')
-        | Hey there. My name is Duo Tao and I'm a {{classyear | lowercase}} at Carleton College. I study Computer Science and Physics. I do Web Development, and I develop Mac software too. Academically, I am very interested in theoretical computer science like algorithms, databases or basically "how this works". I believe there must be smart ideas behind every awesome technologies, and I want to discover them! Same with physics, it tells me "how things works" in the real world, and there are even more ingenious ideas because of its long history.
-        br 
-        br
-        | During my free time, I practice triathlon, play basketball and read about the wisdom of ancient Chinese. Now I am delving into I Ching and Zhan Guo Ce.
+      | I made this blog to share my knowledge with others. I also helps me to reflect on what I learnt by sitting down and writting it up. 
+      br
+      | The website is built with Node.js, Angular.js and Bootstrap. You can check its github
+      a(href='https://github.com/taoduo/myblog')  here
+      | .
