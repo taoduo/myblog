@@ -20,5 +20,9 @@ module.exports = function(passport) {
   router.post('/post', isAuthenticated, blog.postBlog);
 
   router.post('/getBlogs', isAuthenticated, blog.getUserBlog);
+
+  router.post('/delete', isAuthenticated, blog.deleteBlog);
+
+  router.post('/edit', isAuthenticated, blog.editBlog);
   return router;
 }
