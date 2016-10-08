@@ -51,12 +51,12 @@ module.exports = {
   },
 
   deleteBlog : function(req, res) {
-    console.log('api : delete');
-    res.send('from delete api');
+    console.log(req.body.id);
+    res.status(200).send('from delete api');
   },
 
   editBlog : function(req, res) {
-    console.log('api : edit');
-    res.send('from edit api');
+    console.log(req.body);
+    res.status(200).send('from edit api');
   }
 }

@@ -63,7 +63,7 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 		$scope.post = $rootScope.findBlog(id);
 	};
 	$scope.delete = function(id) {
-		$http.post('/management/delete', id).then(function(response) {
+		$http.post('/management/deleteBlog', {'id' : id}).then(function(response) {
 			console.log(response);
 		});
 	};
