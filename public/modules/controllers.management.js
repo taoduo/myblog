@@ -1,6 +1,12 @@
 var app = angular.module('management', ['ngRoute', 'ngSanitize']);
 var converter = new showdown.Converter();
 
+app.filter('parseMd', function() {
+  return function(md) {
+    return converter.makeHtml(md);
+  }
+});
+
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
 	$http.post('/management/getBlogs').then(function(response) {
@@ -20,6 +26,7 @@ app.run(function($rootScope, $window, $http){
 		}
 	}
 });
+
 app.controller('menuController', function($scope, $rootScope) {
   $scope.switchContent = function(content) {
       $rootScope.content = content;
@@ -59,6 +66,15 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	$scope.delete = function(id) {
 		console.log(id);
 	};
+	$scope.refreshPreview = function() {
+		$scope.contentHtml = converter.makeHtml($scope.post.content);
+	};
+	$scope.preview_modal_close = function() {
+		$('#preview-modal').modal('hide');
+	};
+	$scope.edit_modal_close = function() {
+		$('#edit-modal').modal('hide');
+	}
 });
 
 app.controller('locationController', function($http) {

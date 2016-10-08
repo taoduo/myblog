@@ -30,9 +30,9 @@ div.container-fluid
       .modal-dialog(role='document')
         .modal-content
           .modal-header
-            button.close(type='button', data-dismiss='modal', aria-label='Close')
+            button.close(type='button', aria-label='Close', ng-click='preview_modal_close()')
               span(aria-hidden='true') ×
             h4.modal-title Preview
-          .modal-body(ng-bind-html='contentHtml')
+          .modal-body(ng-bind-html='post.content | parseMd')
           .modal-footer
-            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-default(type='button', ng-click='preview_modal_close()') Close
