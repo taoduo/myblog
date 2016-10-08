@@ -13,5 +13,5 @@
   .entry
     p
       iframe.alignleft.border(ng-if='p.link != null' ng-src="{{p.link | trustUrl}}" width='300' height='300')
-      p(ng-bind-html="p.content")
+      p(ng-bind-html="p.content | parseMd")
 div(style='clear: both;')

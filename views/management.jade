@@ -17,11 +17,11 @@ block content
       #page
         #page-bgtop
           #page-bgbtm
-            #overview(ng-if="content === 'overview'")
+            #overview(ng-controller='overviewController' ng-if="content === 'overview'")
               include partials/overview
-            #post(ng-if="content === 'post'")
+            #post(ng-controller='postController' ng-if="content === 'post'")
               include partials/post
-            #locations(ng-if="content === 'location'")
+            #locations(ng-controller='locationController' ng-if="content === 'location'")
               include partials/location
             div(style='clear: both;')
       // end #page

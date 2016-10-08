@@ -1,9 +1,16 @@
 var app = angular.module('index', ['ngSanitize']);
+var converter = new showdown.Converter();
 
 app.filter('trustUrl', function ($sce) {
-    return function(url) {
-        return $sce.trustAsResourceUrl(url);
-    };
+  return function(url) {
+    return $sce.trustAsResourceUrl(url);
+  };
+});
+
+app.filter('parseMd', function() {
+  return function(md) {
+    return converter.makeHtml(md);
+  }
 });
 
 app.run(function($rootScope, $http) {
@@ -21,6 +28,8 @@ app.run(function($rootScope, $http) {
         $rootScope.blogs = response.data;
     });
 });
+
+
 
 app.controller('menuController', function($scope, $rootScope) {
     $scope.switchContent = function(content) {
