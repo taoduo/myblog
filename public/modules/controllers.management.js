@@ -82,7 +82,7 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	};
 	$scope.delete = function(id) {
     if (confirm('Delete?')) {
-  		$http.delete('/management/blog', {'id' : id}).then(function(response) {
+  		$http.delete('/management/blog?id=' + id).then(function(response) {
         if (response.status == 200) {
           alert('Deleted!');
           $rootScope.refreshBlogs();

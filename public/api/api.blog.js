@@ -51,7 +51,7 @@ module.exports = {
   },
 
   deleteBlog : function(req, res) {
-    Post.findById(req.body.id).remove(function(err) {
+    Post.findById(req.query.id).remove(function(err) {
       if (err) {
         res.status(500).send('Database Error');
       } else {
