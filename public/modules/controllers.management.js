@@ -9,9 +9,12 @@ app.filter('parseMd', function() {
 
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
-	$http.post('/management/getBlogs').then(function(response) {
-		$rootScope.blogs = response.data;
-	});
+  $rootScope.refreshBlogs = function() {
+    $http.post('/management/getBlogs').then(function(response) {
+  		$rootScope.blogs = response.data;
+  	});
+  };
+  $rootScope.refreshBlogs();
 	$rootScope.logout = function() {
 			$http.post('/logout').then(function success(response) {
 					$rootScope.currentUser = null;
@@ -60,12 +63,19 @@ app.controller('postController', function($http, $scope) {
 
 app.controller('overviewController', function($scope, $rootScope, $http) {
 	$scope.edit = function(id) {
-		$scope.post = $rootScope.findBlog(id);
+    $scope.post = JSON.parse(JSON.stringify($rootScope.findBlog(id)));
 	};
 	$scope.delete = function(id) {
-		$http.post('/management/deleteBlog', {'id' : id}).then(function(response) {
-			console.log(response);
-		});
+    if (confirm('Delete?')) {
+  		$http.post('/management/deleteBlog', {'id' : id}).then(function(response) {
+        if (response.status == 200) {
+          alert('Deleted!');
+          $rootScope.refreshBlogs();
+        } else {
+          alert('Error!');
+        }
+  		});
+    }
 	};
 	$scope.refreshPreview = function() {
 		$scope.contentHtml = converter.makeHtml($scope.post.content);
@@ -79,7 +89,12 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	// edit
 	$scope.submit = function() {
 		$http.post('/management/edit', $scope.post).then(function(response) {
-			console.log(response);
+      if (response.status == 200) {
+        $scope.success = true;
+        $rootScope.refreshBlogs();
+      } else {
+        $scope.error = true;
+      }
 		});
 	}
 });
