@@ -86,12 +86,6 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	$scope.refreshPreview = function() {
 		$scope.contentHtml = converter.makeHtml($scope.post.content);
 	};
-	$scope.preview_modal_close = function() {
-		$('#preview-modal').modal('hide');
-	};
-	$scope.edit_modal_close = function() {
-		$('#edit-modal').modal('hide');
-	};
 	// edit
 	$scope.submit = function() {
 		$http.post('/management/edit', $scope.post).then(function(response) {
