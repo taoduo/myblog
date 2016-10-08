@@ -51,12 +51,24 @@ module.exports = {
   },
 
   deleteBlog : function(req, res) {
-    console.log(req.body.id);
-    res.status(200).send('from delete api');
+    Post.findById(req.body.id).remove(function(err) {
+      if (err) {
+        res.status(500).send('Database Error');
+      } else {
+        res.status(200).end();
+      }
+    });
   },
 
   editBlog : function(req, res) {
-    console.log(req.body);
+    var post = req.body;
+    Post.update({'_id' : post._id}, {$set : post}, function(err) {
+      if (err) {
+        res.status(500).send('Database Error');
+      } else {
+        res.status(200).end();
+      }
+    })
     res.status(200).send('from edit api');
   }
 }
