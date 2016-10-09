@@ -1,3 +1,6 @@
+# blog images
+/public/images/blog-img/*
+
 # Logs
 logs
 *.log
