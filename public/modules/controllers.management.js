@@ -21,6 +21,7 @@ app.filter('formatGeoPos', function() {
 
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
+  $rootScope.currentDate = new Date();
   $rootScope.refreshBlogs = function() {
     $http.post('/management/getBlogs').then(function(response) {
   		$rootScope.blogs = response.data;
