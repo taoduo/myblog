@@ -7,6 +7,12 @@ app.filter('parseMd', function() {
   }
 });
 
+app.filter('trustUrl', function ($sce) {
+  return function(url) {
+    return $sce.trustAsResourceUrl(url);
+  };
+});
+
 app.filter('formatGeoPos', function() {
   return function(b) {
     return b.lat.toPrecision(8) + ", " + b.lng.toPrecision(8);
