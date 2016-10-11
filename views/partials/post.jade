@@ -1,6 +1,6 @@
 div.container-fluid
   h1 Author: #{currentUser.username}
-  form
+  form(enctype="multipart/form-data")
     // Text input
     .form-group
       label.control-label(for='title') Title
@@ -33,7 +33,7 @@ div.container-fluid
         p.meta
           | Posted by 
           a(href='#') #{currentUser.username}
-          |  on <today>
+          |  on {{currentDate | date : 'fullDate'}}
           | 							 •  
           a.comments(href='#') Comments (999+)
           |   •  
