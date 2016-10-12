@@ -18,6 +18,8 @@ div.container-fluid
         label(for='home')
           input#home(type='checkbox', name='home', value='1' ng-model='post.home')
           | On Home
+      input(type="file" name="file" value="upload" multiple)
+
     // Button
     .form-group
       a#preview-btn.btn.btn-info.form-btn-not-last(data-toggle='collapse', data-target='#preview-window') Preview

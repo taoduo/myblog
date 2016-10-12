@@ -30,7 +30,7 @@ module.exports = function(passport) {
     res.render('management', {currentUser: req.user});
   });
   /* Handle blog post */
-  router.post('/post', isAuthenticated, blog.postBlog);
+  router.post('/post', isAuthenticated, uploading.any(), blog.postBlog);
 
   router.post('/getBlogs', isAuthenticated, blog.getUserBlog);
 
