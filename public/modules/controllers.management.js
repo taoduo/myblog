@@ -30,9 +30,14 @@ app.directive("fileread", ['$http', function ($http) {
                 var reader = new FileReader();
                 reader.onload = function (loadEvent) {
                     scope.$apply(function () {
+                        var split = changeEvent.target.files[0].name.split('.');
+                        var type = split[split.length - 1];
                         scope.fileread = loadEvent.target.result;
-                        $http.post('/management/upload', {'pics' : reader.result}).then(function(response) {
-                            console.log(response);
+                        $http.post('/management/upload', {'pics' : {
+                          data : reader.result,
+                          type : type
+                        }}).then(function(response) {
+                            console.log(response.data);
                         });
                     });
                 }
