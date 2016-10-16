@@ -43,5 +43,12 @@ div.container-fluid
             iframe.alignleft.border(ng-if='post.link != null' ng-src="{{post.link | trustUrl}}" width='300' height='300')
             p(ng-bind-html="post.content | parseMd")
   iframe(name="hiddenFrame" width="0" height="0" border="0" style="display: none;")
-  form#uploadForm(action='/management/upload' method='POST' enctype="multipart/form-data" target='hiddenFrame')
-    input(style='margin-bottom:20px' type="file" fileread='pics' value="upload" multiple)
+  form#uploadForm(ng-init="uploads=[]"  action='/management/upload' method='POST' enctype="multipart/form-data" target='hiddenFrame')
+    input(uploads='uploads' type="file" fileread='pics' value="upload" multiple)
+    table.table(style='margin-top: 20px;' border='1')
+      tr
+        th Original Name
+        th Reference Name
+      tr(ng-repeat='p in uploads') 
+        td {{p.originalName}}
+        td {{p.newName}}

@@ -20,10 +20,12 @@ app.filter('formatGeoPos', function() {
 });
 
 // Credits for: http://stackoverflow.com/questions/17063000/ng-model-for-input-type-file
+// Used specifically for the upload of blog pictures, need change to generalize
 app.directive("fileread", ['$http', function ($http) {
     return {
         scope: {
-            fileread: "="
+            fileread: "=",
+            uploads: '='
         },
         link: function (scope, element, attributes) {
             element.bind("change", function (changeEvent) {
@@ -36,8 +38,14 @@ app.directive("fileread", ['$http', function ($http) {
                         $http.post('/management/upload', {'pics' : {
                           data : reader.result,
                           type : type
-                        }}).then(function(response) {
-                            console.log(response.data);
+                        }})
+                        .then(function(response) {
+                          if (response.status == 200) {
+                            scope.uploads.push({
+                              originalName : changeEvent.target.files[0].name,
+                              newName : response.data
+                            })
+                          }
                         });
                     });
                 }
@@ -48,6 +56,12 @@ app.directive("fileread", ['$http', function ($http) {
 }]);
 
 app.run(function($rootScope, $window, $http){
+  $(":file").filestyle({
+    input: false,
+    buttonText: 'Upload Pictures',
+    iconName: "glyphicon glyphicon-picture"
+  });
+
 	$rootScope.content = 'overview';
   $rootScope.currentDate = new Date();
   $rootScope.refreshBlogs = function() {
