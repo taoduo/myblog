@@ -6,18 +6,17 @@ var Post = require(__public + 'models/post.js');
 var blog = require(__public + 'api/api.blog.js');
 var Location = require(__public + 'api/api.location.js');
 var multer = require('multer');
-var storage = multer.diskStorage({
-   destination: function (req, file, cb) {
-     console.log(file);
-     cb(null, '/public/images/blog-img/')
-   },
-   filename: function (req, file, cb) {
-      cb(null, file.originalname);
-   }
-});
-var uploading = multer({
-   storage: storage,
-});
+var fs = require('fs');
+var atob = require('atob');
+
+var savePicture = function(req, res) {
+  var base64Data = req.body.pics.replace(/^data:image\/png;base64,/, "");
+  fs.writeFile('./public/images/blog-img/a.png', base64Data, 'base64', function(err) {
+  if(err) {
+    return console.log(err);
+  }
+  res.end("The file was saved!");});
+}
 
 var isAuthenticated = function (req, res, next) {
   if (req.isAuthenticated())
@@ -33,7 +32,7 @@ module.exports = function(passport) {
   /* Handle blog post */
   router.post('/post', isAuthenticated, blog.postBlog);
 
-  router.post('/upload', isAuthenticated, uploading.any());
+  router.post('/upload', isAuthenticated, savePicture);
 
   router.post('/getBlogs', isAuthenticated, blog.getUserBlog);
 

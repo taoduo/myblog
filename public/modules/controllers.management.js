@@ -19,6 +19,29 @@ app.filter('formatGeoPos', function() {
   }
 });
 
+// Credits for: http://stackoverflow.com/questions/17063000/ng-model-for-input-type-file
+app.directive("fileread", ['$http', function ($http) {
+    return {
+        scope: {
+            fileread: "="
+        },
+        link: function (scope, element, attributes) {
+            element.bind("change", function (changeEvent) {
+                var reader = new FileReader();
+                reader.onload = function (loadEvent) {
+                    scope.$apply(function () {
+                        scope.fileread = loadEvent.target.result;
+                        $http.post('/management/upload', {'pics' : reader.result}).then(function(response) {
+                            console.log(response);
+                        });
+                    });
+                }
+                reader.readAsDataURL(changeEvent.target.files[0]);
+            });
+        }
+    }
+}]);
+
 app.run(function($rootScope, $window, $http){
 	$rootScope.content = 'overview';
   $rootScope.currentDate = new Date();
@@ -63,7 +86,7 @@ app.controller('postController', function($http, $scope) {
 	  newPost.home = $scope.post.home;
 	  newPost.link = $scope.post.link;
 		$http.post('/management/post', newPost).then(function(response) {
-			if (response.data == 'Posted!') {
+			if (response.status == 200) {
 				$scope.success = true;
 				window.location = window.location.protocol + "//" + window.location.host
 			} else {

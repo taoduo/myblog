@@ -43,5 +43,5 @@ div.container-fluid
             iframe.alignleft.border(ng-if='post.link != null' ng-src="{{post.link | trustUrl}}" width='300' height='300')
             p(ng-bind-html="post.content | parseMd")
   iframe(name="hiddenFrame" width="0" height="0" border="0" style="display: none;")
-  form(action='/management/upload' method='POST' enctype="multipart/form-data" target='hiddenFrame')
-    input(style='margin-bottom:20px' onchange="this.form.submit();" type="file" name="file" value="upload" multiple)
+  form#uploadForm(action='/management/upload' method='POST' enctype="multipart/form-data" target='hiddenFrame')
+    input(style='margin-bottom:20px' type="file" fileread='pics' value="upload" multiple)
