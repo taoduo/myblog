@@ -9,7 +9,6 @@
     "angular": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-sanitize": "^1.5.8",
-    "atob": "^2.0.3",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.13.2",
     "bootstrap": "^3.3.7",

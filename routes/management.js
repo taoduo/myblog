@@ -6,7 +6,6 @@ var Post = require(__public + 'models/post.js');
 var blog = require(__public + 'api/api.blog.js');
 var Location = require(__public + 'api/api.location.js');
 var fs = require('fs');
-var atob = require('atob');
 
 var savePicture = function(req, res) {
   var base64Data = req.body.pics.data.replace(/^data:image\/png;base64,/, "");
