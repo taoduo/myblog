@@ -8,7 +8,8 @@ var Location = require(__public + 'api/api.location.js');
 var multer = require('multer');
 var storage = multer.diskStorage({
    destination: function (req, file, cb) {
-      cb(null, '../public/images/blog-img/')
+     console.log(file);
+     cb(null, '/public/images/blog-img/')
    },
    filename: function (req, file, cb) {
       cb(null, file.originalname);
@@ -30,7 +31,9 @@ module.exports = function(passport) {
     res.render('management', {currentUser: req.user});
   });
   /* Handle blog post */
-  router.post('/post', isAuthenticated, uploading.any(), blog.postBlog);
+  router.post('/post', isAuthenticated, blog.postBlog);
+
+  router.post('/upload', isAuthenticated, uploading.any());
 
   router.post('/getBlogs', isAuthenticated, blog.getUserBlog);
 

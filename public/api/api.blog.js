@@ -28,7 +28,7 @@ module.exports = {
         throw err;
       }
       res.send(post);
-    });
+    }).sort({date:-1});
   },
 
   postBlog : function(req, res) {
@@ -46,7 +46,7 @@ module.exports = {
         console.log('Error in Saving post: ' + err);
         throw err;
       }
-      res.send('Posted!');
+      res.status(200).end();
     })
   },
 
@@ -69,6 +69,6 @@ module.exports = {
         res.status(200).end();
       }
     })
-    res.status(200).send('from edit api');
+    res.status(200).end();
   }
 }

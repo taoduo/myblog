@@ -1,6 +1,6 @@
 div.container-fluid
   h1 Author: #{currentUser.username}
-  form(enctype="multipart/form-data")
+  form
     // Text input
     .form-group
       label.control-label(for='title') Title
@@ -18,8 +18,6 @@ div.container-fluid
         label(for='home')
           input#home(type='checkbox', name='home', value='1' ng-model='post.home')
           | On Home
-      input(type="file" name="file" value="upload" multiple)
-
     // Button
     .form-group
       a#preview-btn.btn.btn-info.form-btn-not-last(data-toggle='collapse', data-target='#preview-window') Preview
@@ -44,3 +42,6 @@ div.container-fluid
           p
             iframe.alignleft.border(ng-if='post.link != null' ng-src="{{post.link | trustUrl}}" width='300' height='300')
             p(ng-bind-html="post.content | parseMd")
+  iframe(name="hiddenFrame" width="0" height="0" border="0" style="display: none;")
+  form(action='/management/upload' method='POST' enctype="multipart/form-data" target='hiddenFrame')
+    input(style='margin-bottom:20px' onchange="this.form.submit();" type="file" name="file" value="upload" multiple)
