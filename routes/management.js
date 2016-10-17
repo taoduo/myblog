@@ -11,13 +11,20 @@ var fs = require('fs');
 
 var savePicture = function(req, res) {
   var base64Data = req.body.pics.data.replace(/^data:image\/png;base64,/, "");
-  var type = req.body.pics.type;
-  var fileName = new Date().getTime() + '.' + type;
-  fs.writeFile('./public/images/blog-img/' + fileName, base64Data, 'base64', function(err) {
+  var originalName = req.body.pics.filename;
+  var split = originalName.split('.');
+  var type = split[split.length - 1];
+  var fileName = Math.random().toString(36).substring(7) + new Date().getTime() + '.' + type;
+  var path = './public/images/blog-img/' + fileName;
+
+  fs.writeFile(path, base64Data, 'base64', function(err) {
     if(err) {
       return console.log(err);
     }
-    res.status(200).end('/public/images/blog-img/' + fileName);
+    res.status(200).send({
+      filename : originalName,
+      path : path
+    });
   });
 }
 

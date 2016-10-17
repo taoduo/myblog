@@ -24,33 +24,38 @@ app.filter('formatGeoPos', function() {
 app.directive("fileread", ['$http', function ($http) {
     return {
         scope: {
-            fileread: "=",
-            uploads: '='
+          fileread: "=",
+          uploads: '='
         },
         link: function (scope, element, attributes) {
-            element.bind("change", function (changeEvent) {
-                var reader = new FileReader();
-                reader.onload = function (loadEvent) {
-                    scope.$apply(function () {
-                        var split = changeEvent.target.files[0].name.split('.');
-                        var type = split[split.length - 1];
-                        scope.fileread = loadEvent.target.result;
-                        $http.post('/management/upload', {'pics' : {
-                          data : reader.result,
-                          type : type
-                        }})
-                        .then(function(response) {
-                          if (response.status == 200) {
-                            scope.uploads.push({
-                              originalName : changeEvent.target.files[0].name,
-                              newName : response.data
-                            })
-                          }
-                        });
+          element.bind("change", function (changeEvent) {
+            var files = changeEvent.target.files;
+            var reader = new FileReader();
+            var count = 0;
+            reader.onload = function (loadEvent) {
+              scope.$apply(function () {
+                var fn = files[count].name;
+                scope.fileread = reader.result;
+                $http.post('/management/upload', {'pics' : {
+                  data : reader.result,
+                  filename : fn
+                }})
+                .then(function(response) {
+                  if (response.status == 200) {
+                    scope.uploads.push({
+                      originalName : response.data.filename,
+                      newName : response.data.path
                     });
-                }
-                reader.readAsDataURL(changeEvent.target.files[0]);
-            });
+                  }
+                });
+              });
+              count++;
+              if (count < files.length) {
+                reader.readAsDataURL(files[count]);
+              }
+            };
+            reader.readAsDataURL(files[count]);
+          });
         }
     }
 }]);
