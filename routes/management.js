@@ -3,6 +3,8 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require(__public + 'models/user.js');
 var Post = require(__public + 'models/post.js');
+var Picture = require(__public + 'models/picture.js');
+
 var blog = require(__public + 'api/api.blog.js');
 var Location = require(__public + 'api/api.location.js');
 var fs = require('fs');
