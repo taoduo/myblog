@@ -29,7 +29,10 @@ module.exports = function(passport) {
     .then(function(res) {
       return res.json();
     }).then(function(json) {
-      console.log(json);
+      names = json.map(function(rep) {
+        return rep['name']
+      });
+      console.log(names);
     });
     if (req.isAuthenticated()) {
       var userToSend = {};
