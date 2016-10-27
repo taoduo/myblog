@@ -3,8 +3,6 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var User = require(__public + 'models/user.js');
 var Post = require(__public + 'models/post.js');
-var Picture = require(__public + 'models/picture.js');
-
 var blog = require(__public + 'api/api.blog.js');
 var Location = require(__public + 'api/api.location.js');
 var fs = require('fs');
@@ -15,9 +13,9 @@ var savePicture = function(req, res) {
   var split = originalName.split('.');
   var type = split[split.length - 1];
   var fileName = Math.random().toString(36).substring(7) + new Date().getTime() + '.' + type;
-  var path = './public/images/blog-img/' + fileName;
+  var path = '/images/blog-img/' + fileName;
 
-  fs.writeFile(path, base64Data, 'base64', function(err) {
+  fs.writeFile('./public' + path, base64Data, 'base64', function(err) {
     if(err) {
       return console.log(err);
     }

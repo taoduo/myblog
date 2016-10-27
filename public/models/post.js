@@ -8,5 +8,6 @@ module.exports = mongoose.model('Post', {
     date: Date,
     content: String,
     home: Boolean,
-    link: String
+    link: String,
+    pics: [String]
 });

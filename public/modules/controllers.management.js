@@ -36,12 +36,14 @@ app.directive("fileread", ['$http', function ($http) {
               scope.$apply(function () {
                 var fn = files[count].name;
                 scope.fileread = reader.result;
+                // upload picture
                 $http.post('/management/upload', {'pics' : {
                   data : reader.result,
                   filename : fn
                 }})
                 .then(function(response) {
                   if (response.status == 200) {
+                    // upload success callback
                     scope.uploads.push({
                       originalName : response.data.filename,
                       newName : response.data.path
@@ -50,10 +52,12 @@ app.directive("fileread", ['$http', function ($http) {
                 });
               });
               count++;
+              // read the next one
               if (count < files.length) {
                 reader.readAsDataURL(files[count]);
               }
             };
+            // read the first file
             reader.readAsDataURL(files[count]);
           });
         }
@@ -109,6 +113,10 @@ app.controller('postController', function($http, $scope) {
 	  newPost.content = $scope.post.content;
 	  newPost.home = $scope.post.home;
 	  newPost.link = $scope.post.link;
+    newPost.pics = $scope.uploads.map(function(pic) {
+      return pic['newName'] // no 'public'
+    });
+    console.log($scope.uploads[0]);
 		$http.post('/management/post', newPost).then(function(response) {
 			if (response.status == 200) {
 				$scope.success = true;
