@@ -1,6 +1,5 @@
 var Post = require(__public + 'models/post.js');
 var fs = require('fs');
-
 module.exports = {
   getHomeBlog : function (req, res) {
     Post.find({'home':true}, function (err, post) {
@@ -40,7 +39,7 @@ module.exports = {
     newPost.author = req.user;
     newPost.home = req.body.home;
     newPost.link = req.body.link;
-    newPost.pics = req.body.pics; // no public
+    newPost.pics = req.body.pics; // no 'public'
     console.log(req.body);
     newPost.save(function(err) {
       if (err) {
@@ -52,20 +51,23 @@ module.exports = {
   },
 
   deleteBlog : function(req, res) {
-    Post.findById(req.query.id).remove(function(err, removed) {
-      if (err) {
-        res.status(500).end('Database Error');
-      } else {
-        console.log(removed);
-        for (var pic in removed.pics) {
-          fs.unlink(pic, (err) => {
-            if (err) {
-              res.status(500).end('File System Error');
-            } else {
-              res.status(200).end();
-            }
-          });
-        }
+    Post.findById(req.query.id, function(err, result) {
+      for (var i in result.pics) {
+        fs.unlink(__public + result.pics[i], (err) => {
+          if (err) {
+            console.log(err);
+            res.status(500).end('File System Error');
+          } else {
+            Post.remove({'_id' : req.query.id}, function(err) {
+              if (err) {
+                console.log(err);
+                res.status(500).end('Database Error');
+              } else {
+                res.status(200).end();
+              }
+            });
+          }
+        });
       }
     });
   },
