@@ -29,22 +29,25 @@ module.exports = function(passport) {
     .then(function(res) {
       return res.json();
     }).then(function(json) {
-      names = json.map(function(rep) {
-        return rep['name']
+      repos = json.map(function(rep) {
+        return {
+          'name' : rep['name'],
+          'url' : rep['html_url'],
+          'desc' : rep['description']
+        }
       });
-      console.log(names);
+      if (req.isAuthenticated()) {
+        var userToSend = {};
+        userToSend.email = req.user.email;
+        userToSend.username = req.user.username;
+        userToSend.role = req.user.role;
+        userToSend._id = req.user._id;
+        var userInString = JSON.stringify(userToSend);
+        res.render('index', {currentUser: userInString, repos : repos});
+      } else {
+        res.render('index', {currentUser: 'null', repos : repos});
+      }
     });
-    if (req.isAuthenticated()) {
-      var userToSend = {};
-      userToSend.email = req.user.email;
-      userToSend.username = req.user.username;
-      userToSend.role = req.user.role;
-      userToSend._id = req.user._id;
-      var userInString = JSON.stringify(userToSend);
-      res.render('index', {currentUser: userInString});
-    } else {
-      res.render('index', {currentUser: 'null'});
-    }
   });
 
   router.post('/getHomeBlog', blog.getHomeBlog);

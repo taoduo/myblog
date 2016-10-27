@@ -1,40 +1,17 @@
 ul
-                li
-                  h2 Blogger's Word
-                  p
-                    | Hey! I am Duo Tao. I am a friendly, active and cordial person. I am a {{classyear | lowercase}} at Carleton College right now and I major in Physics and Computer Science: I love Cool Techonologies! I also enjoy Trianthon and Basketball in my free time.
-                li
-                  h2 Recent Posts
-                  ul
-                    li(ng-repeat='p in blogs')
-                      a(href='#') {{p.title}}
-                li
-                  h2 Github Repos
-                  ul
-                    li
-                      a(href='https://github.com/taoduo/LineDetection') Line Detector
-                      p Visual Recognization
-                    li
-                      a(href='https://github.com/CarletonDevX/textbook-exchange') Textbook Exchange
-                      p Website for textbooks
-                    li
-                      a(href='https://github.com/taoduo/lyrproj') Celebrity Net Worth
-                      p Website, data entry UI
-                    li
-                      a(href='https://github.com/taoduo/mywebsite') My Application Collections
-                      p All my apps
-                    li
-                      a(href='https://github.com/taoduo/QtSongWriter') Midi Track Writer
-                      p C++ Song writing software
-                    li
-                      a(href='https://github.com/taoduo/AdvertisementClickCounter') Ad Click Counter
-                      p Hadoop MapReduce Demo
-                    li
-                      a(href='https://github.com/taoduo/RoboticArmWithInternetOfThings') IoT Robotic Arm
-                      p Arduino, robot arm with IoT
-                    li
-                      a(href='https://github.com/taoduo/3DImmersiveAudio') 3D sound navigator
-                      p VR project to guide the blind with audio
-                    li
-                      a(href='https://github.com/xxf1995/xxf1995.github.io') Zombie Forest
-                      p A VR survival game made
+  li
+    h2 Blogger's Word
+    p
+      | Hey! I am Duo Tao. I am a friendly, active and cordial person. I am a {{classyear | lowercase}} at Carleton College right now and I major in Physics and Computer Science: I love Cool Techonologies! I also enjoy Trianthon and Basketball in my free time.
+  li
+    h2 Recent Posts
+    ul
+      li(ng-repeat='p in blogs')
+        a(href='#') {{p.title}}
+  li
+    h2 Github Repos
+    ul
+    each r in repos
+      li
+        a(href= r.url)= r.name
+        p= r.desc
