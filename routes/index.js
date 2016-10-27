@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var bCrypt = require('bcrypt-nodejs');
+var fetch = require('node-fetch');
 var user = require(__public + 'api/api.user.js');
 var blog = require(__public + 'api/api.blog.js');
 var location = require(__public + 'api/api.location.js');
@@ -18,6 +19,18 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports = function(passport) {
   router.get('/', function(req, res) {
+    var options = {
+      host: 'api.github.com',
+      path: '/users/taoduo/repos',
+      method: 'GET'
+    };
+
+    fetch('https://api.github.com/users/taoduo/repos')
+    .then(function(res) {
+      return res.json();
+    }).then(function(json) {
+      console.log(json);
+    });
     if (req.isAuthenticated()) {
       var userToSend = {};
       userToSend.email = req.user.email;
