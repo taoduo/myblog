@@ -21,21 +21,21 @@ app.filter('formatGeoPos', function() {
 
 // Credits for: http://stackoverflow.com/questions/17063000/ng-model-for-input-type-file
 // Used specifically for the upload of blog pictures, need change to generalize
-app.directive("fileread", ['$http', function ($http) {
+app.directive("fileread", ['$http', function ($http) { // define a directive called fileread
     return {
-        scope: {
-          fileread: "=",
-          uploads: '='
+        scope: { // attributes attached to the element evaluated in the scope
+          fileread: "=", // fileread is bind to the value of variable pics in the scope
+          uploads: '=' // I save the uploaded documents to display them in the table below
         },
-        link: function (scope, element, attributes) {
-          element.bind("change", function (changeEvent) {
+        link: function (scope, element, attributes) { // what does it get to have the attribute "fileread"
+          element.bind("change", function (changeEvent) { // it gets an onchange event
             var files = changeEvent.target.files;
             var reader = new FileReader();
             var count = 0;
             reader.onload = function (loadEvent) {
               scope.$apply(function () {
                 var fn = files[count].name;
-                scope.fileread = reader.result;
+                scope.fileread = reader.result; // you can refer to scope variable introduced above like this
                 // upload picture
                 $http.post('/management/upload', {'pics' : {
                   data : reader.result,
