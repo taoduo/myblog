@@ -260,13 +260,27 @@ img.aligncenter {
 	font-style: italic;
 }
 
-.post .meta a {
-}
-
 .post .entry {
 	text-align: justify;
 	margin-bottom: 25px;
 	padding: 10px 0px 0px 0px;
+}
+
+.post .entry .abbreviated{
+	max-height: 60px;
+	overflow: hidden;
+}
+
+.post .entry .toggle-button {
+	font-weight: bold;
+	padding: 10px
+}
+
+.post .entry .toggle-button:hover{
+	cursor: pointer;
+	background-color: #222222;
+	text-decoration: none;
+	color: white
 }
 
 .links {

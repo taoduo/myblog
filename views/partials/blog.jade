@@ -10,7 +10,7 @@
     a.comments(href='#') Comments (999+)
     |   •  
     a.permalink(href='#') Full article
-  .entry
-    p
+  .entry(ng-init='p.abbr = true')
       iframe.alignleft.border(ng-if='p.link != null' ng-src="{{p.link | trustUrl}}" width='300' height='300')
-      p(ng-bind-html="p.content | parseMd")
+      div(ng-class="{'abbreviated': p.abbr}" ng-bind-html="p.content | parseMd")
+      a.toggle-button(ng-click='p.abbr=!p.abbr') {{p.abbr ? ' + Full' : ' - Less'}}
