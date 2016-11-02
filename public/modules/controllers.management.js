@@ -161,8 +161,8 @@ app.controller('overviewController', function($scope, $rootScope, $http) {
 	$scope.submit = function() {
 		$http.post('/management/edit', $scope.post).then(function(response) {
       if (response.status == 200) {
-        $scope.success = true;
         $rootScope.refreshBlogs();
+        $scope.closeEdit();
       } else {
         $scope.error = true;
       }
