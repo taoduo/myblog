@@ -26,7 +26,7 @@ div.container-fluid
       p.errorMsg(ng-if='error') Error...
 
     #preview-window.collapse.fade.well(tabindex='-1', role='dialog', aria-labelledby='preview-modal', aria-hidden='true')
-      .post(ng-repeat='p in blogs')
+      .post
         h2.title
           a(href='#') 
           | {{post.title}}
