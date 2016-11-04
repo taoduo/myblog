@@ -2,13 +2,15 @@ var Post = require(__public + 'models/post.js');
 var fs = require('fs');
 module.exports = {
   getHomeBlog : function (req, res) {
-    Post.find({'home':true}, function (err, post) {
+    Post.find({
+      'home':true
+    }, function (err, post) {
       if (err) {
         res.status(500).end('Database Error');
       } else {
         res.send(post);
       }
-    }).sort({date:-1}).limit(3);
+    }).sort({date:-1}).limit(3).populate('author');
   },
 
   getBlog : function (req, res) {
