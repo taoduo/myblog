@@ -1,4 +1,4 @@
-extends layout
+extends head
 block content
   script(src='/modules/controllers.index.js')
   .app-wrapper(ng-app='index')
@@ -16,28 +16,28 @@ block content
                 | Software developer, Physicist, Algorithmist
       // end #header
       #menu(ng-controller='menuController')
-        include partials/indexMenu
+        include partials/index.menu.jade
       #logIn.modal.fade(role="dialog" ng-controller="loginController")
-        include partials/login
+        include partials/index.modal.login.jade
       #signUp.modal.fade(role="dialog" ng-controller='signupController')
-        include partials/signup
+        include partials/index.modal.signup.jade
       #userDashboard.modal.fade(role='dialog')
-        include partials/userDashboard
+        include partials/index.modal.user-dashboard.jade
       // end #menu
       #page
         #page-bgtop
           #page-bgbtm
             h2(style='color:red') Excuse me for the lack of content and incompleteness. My blog is still under construction.
             #content(ng-if="content === 'home'")
-              include partials/home
+              include partials/index.home.jade
             #blog(ng-if="content === 'blog'")
-              include partials/blog
+              include partials/index.blog.jade
             #about(ng-if="content === 'about'", ng-controller='aboutController')
-              include partials/about
+              include partials/index.about.jade
             #contact(ng-if="content === 'contact'", ng-controller='contactController', ng-init='initMap()')
-              include partials/contact
+              include partials/index.contact.jade
             #sidebar(ng-if="content === 'home'")
-              include partials/sidebar
+              include partials/index.sidebar.jade
             div(style='clear: both;')  
       // end #page
     #footer

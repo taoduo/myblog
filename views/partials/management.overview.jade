@@ -1,3 +1,5 @@
+// OVERVIEW on management page
+
 h1 Overview
 table#overview-table.table.table-hover(border='1')
   tr
@@ -19,6 +21,6 @@ table#overview-table.table.table-hover(border='1')
           span(aria-hidden='true') ×
         h4.modal-title ✎ Edit
       .modal-body
-        include post
+        include management.post.jade
       .modal-footer
         button.btn.btn-default(type='button', ng-click='closeEdit()') Close

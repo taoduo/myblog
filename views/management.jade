@@ -1,4 +1,4 @@
-extends layout
+extends head
 block content
   script(src='/modules/controllers.management.js')
   .app-wrapper(ng-app='management')
@@ -12,17 +12,17 @@ block content
               |  Administrator Page
       // end #header
       #menu(ng-controller='menuController')
-        include partials/managementMenu
+        include partials/management.menu.jade
       // end #menu
       #page
         #page-bgtop
           #page-bgbtm
             #overview(ng-controller='overviewController' ng-if="content === 'overview'")
-              include partials/overview
+              include partials/management.overview.jade
             #post(ng-controller='postController' ng-if="content === 'post'")
-              include partials/post
+              include partials/management.post.jade
             #locations(ng-controller='locationController' ng-if="content === 'location'")
-              include partials/location
+              include partials/management.location.jade
             div(style='clear: both;')
       // end #page
     #footer
