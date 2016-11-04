@@ -20,7 +20,7 @@ module.exports = {
       } else {
         res.send(post);
       }
-    }).sort({date:-1}).limit(20);
+    }).sort({date:-1}).limit(20).populate('author');
   },
 
   getUserBlog : function(req, res) {
@@ -30,7 +30,7 @@ module.exports = {
       } else {
         res.send(post);
       }
-    }).sort({date:-1});
+    }).sort({date:-1}).populate('author');
   },
 
   postBlog : function(req, res) {
