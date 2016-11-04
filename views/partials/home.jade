@@ -4,7 +4,7 @@
     | {{p.title}}
   p.meta
     | Posted by 
-    a(href='#') {{p.author.username}}
+    b {{p.author.username}}
     |  on {{p.date | date : 'fullDate'}}
     | 							 •  
     a.comments(href='#') Comments (999+)
