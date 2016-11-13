@@ -1,0 +1,9 @@
+include header.jade
+#menu
+  include blog.menu.jade
+#logIn.modal.fade(role="dialog" ng-controller="loginController")
+  include index.modal.login.jade
+#signUp.modal.fade(role="dialog" ng-controller='signupController')
+  include index.modal.signup.jade
+#userDashboard.modal.fade(role='dialog')
+  include index.modal.user-dashboard.jade

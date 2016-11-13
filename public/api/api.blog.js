@@ -83,5 +83,17 @@ module.exports = {
         res.status(200).end();
       }
     });
+  },
+
+  getWithUrl : function(req, res, next) {
+    var url = req.params.url;
+    Post.find({'url' : url}, function(err, post) {
+      if (err) {
+        res.status(500).send('Database Error');
+      } else {
+        req.blog = post[0];
+        next();
+      }
+    });
   }
 }

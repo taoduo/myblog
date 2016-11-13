@@ -3,16 +3,7 @@ block content
   script(src='/modules/controllers.management.js')
   .app-wrapper(ng-app='management')
     #wrapper
-      #header-wrapper
-        #header
-          #logo
-            h1
-              a(href='/') Duo Tao's Blog 
-            p
-              |  Administrator Page
-      // end #header
-      #menu(ng-controller='menuController')
-        include partials/management.menu.jade
+      include partials/management.header.jade
       // end #menu
       #page
         #page-bgtop

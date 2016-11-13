@@ -1,0 +1,22 @@
+extends head
+block content
+  script(src='/modules/controllers.blog.js')
+  .app-wrapper(ng-app='blog')
+    #wrapper
+      include partials/blog.header.jade
+      #page
+        #page-bgtop
+          #page-bgbtm
+            h2(style='color:red') Excuse me for the lack of content and incompleteness. My blog is still under construction.
+            include partials/blog.full.jade
+      // end #page
+    #footer
+      include partials/footer
+      // end #footer
+    script.
+      var app = angular.module('blog');
+      var userStr = "#{currentUser}";
+      var initUser = JSON.parse(userStr.replace(/&quot;/g,'"'));
+      app.run(function($rootScope) {
+        $rootScope.currentUser = initUser;
+      });

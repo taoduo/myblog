@@ -1,0 +1,15 @@
+// display blog in full
+h2.title
+  a(href='#') 
+  | {{blog.title}}
+p.meta
+  | Posted by 
+  b {{blog.author.username}}
+  |  on {{blog.date | date: 'fullDate'}}
+  | 							 •  
+  a.comments(href='#') Comments (999+)
+  |   •  
+  a.permalink(href="/blogs/{{blog.url}}") Full article
+.entry
+  iframe.alignleft.border(ng-if='blog.link != null' ng-src="blog.link | trustUrl" width='300' height='300')
+  div(ng-bind-html='blog.content | parseMd')

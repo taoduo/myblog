@@ -9,7 +9,7 @@ p.meta
   | 							 •  
   a.comments(href='#') Comments (999+)
   |   •  
-  a.permalink(href="{{p.url}}") Full article
+  a.permalink(href="/blogs/{{p.url}}") Full article
 .entry(ng-init='p.abbr = true')
     iframe.alignleft.border(ng-if='p.link != null' ng-src="{{p.link | trustUrl}}" width='300' height='300')
     div(ng-class="{'abbreviated': p.abbr}" ng-bind-html="p.content | parseMd")

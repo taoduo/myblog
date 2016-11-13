@@ -68,5 +68,22 @@ module.exports = function(passport) {
   router.get('/location', location.getLocation);
 
   router.get('/locationGuess', location.locationGuess);
+
+  router.get('/blogs/:url', function(req, res) {
+    if (req.isAuthenticated()) {
+      var userToSend = {};
+      userToSend.email = req.user.email;
+      userToSend.username = req.user.username;
+      userToSend.role = req.user.role;
+      userToSend._id = req.user._id;
+      var userInString = JSON.stringify(userToSend);
+      res.render('blog', {currentUser: userInString});
+    } else {
+      res.render('blog', {currentUser: 'null'});
+    }
+  });
+  router.post('/blogs/:url', blog.getWithUrl, function(req, res) {
+    res.send(req.blog);
+  })
   return router;
 }

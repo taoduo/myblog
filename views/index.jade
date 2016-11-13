@@ -3,26 +3,7 @@ block content
   script(src='/modules/controllers.index.js')
   .app-wrapper(ng-app='index')
     #wrapper
-      #header-wrapper
-        #header
-          #logo
-            h1
-              a(href='#') Duo Tao's Blog 
-            p
-              | {{classyear}} at 
-              span 
-                a(href='http://www.carleton.edu', rel='nofollow') Carleton College
-                br
-                | Software developer, Physicist, Algorithmist
-      // end #header
-      #menu(ng-controller='menuController')
-        include partials/index.menu.jade
-      #logIn.modal.fade(role="dialog" ng-controller="loginController")
-        include partials/index.modal.login.jade
-      #signUp.modal.fade(role="dialog" ng-controller='signupController')
-        include partials/index.modal.signup.jade
-      #userDashboard.modal.fade(role='dialog')
-        include partials/index.modal.user-dashboard.jade
+      include partials/index.header.jade
       // end #menu
       #page
         #page-bgtop

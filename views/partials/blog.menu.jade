@@ -1,0 +1,15 @@
+// menu of index page
+ul
+  li
+    a(href='/') Home
+  li.pull-right
+    a(type='button' href='/management' ng-show="currentUser.role === 'administrator'") Management
+  li.pull-right
+    a(ng-if='!currentUser' type='button' data-toggle="modal" data-target="#logIn")
+      | Login
+    a(ng-if='currentUser' type='button' data-toggle="modal" data-target="#userDashboard")
+      | #{currentUser.username}
+  li.pull-right(ng-show="!currentUser")
+    a(type='button' data-toggle="modal" data-target="#signUp") Sign Up
+  li.pull-right(ng-show="currentUser")
+    a(type='button' ng-click='logout()') Logout
