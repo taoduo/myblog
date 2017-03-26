@@ -42,7 +42,7 @@ div.container-fluid
           a.permalink(href='#') Full article
         .entry
           p
-            iframe.alignleft.border(ng-if='post.link != null' ng-src="{{post.link | trustUrl}}" width='300' height='300')
+            iframe.alignleft.border(ng-if='post.link.length' ng-src="{{post.link | trustUrl}}" width='300' height='300')
             p(ng-bind-html="post.content | parseMd")
   iframe(name="hiddenFrame" width="0" height="0" border="0" style="display: none;")
   form#uploadForm(ng-init="uploads=[]"  action='/management/upload' method='POST' enctype="multipart/form-data" target='hiddenFrame')
