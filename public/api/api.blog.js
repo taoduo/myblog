@@ -42,13 +42,7 @@ module.exports = {
 		newPost.home = req.body.home;
 		newPost.link = req.body.link;
 		newPost.pics = req.body.pics;
-		newPost.save(function(err) {
-			if (err) {
-				res.status(500).end('Database Error');
-			} else {
-				res.status(200).end();
-			}
-		})
+		checkForDuplicate(res, newPost, savePost);
 	},
 
 	deleteBlog : function(req, res) {
@@ -74,13 +68,7 @@ module.exports = {
 
 	editBlog : function(req, res) {
 		var post = req.body;
-		Post.update({'_id' : post._id}, {$set : post}, function(err) {
-			if (err) {
-				res.status(500).send('Database Error');
-			} else {
-				res.status(200).end();
-			}
-		});
+		checkForDuplicate(res, post, updatePost);
 	},
 
 	getWithUrl : function(req, res, next) {
@@ -94,4 +82,44 @@ module.exports = {
 			}
 		});
 	}
+}
+
+/*
+ * Check for duplicate titles.
+ * Call callback if no duplicate
+ */
+function checkForDuplicate(res, newPost, callback) {
+	Post.find({'title': newPost.title}, function(err, post) {
+		if (err) {
+			res.status(500).send('Database Error');
+		} else {
+			if (post == null) {
+				callback(res, newPost);
+			} else {
+				res.status(400).send('Duplicate Title');
+			}
+		}
+	});
+}
+
+/* Save post */
+function savePost(res, newPost) {
+	newPost.save(function(err) {
+		if (err) {
+			res.status(500).end('Database Error');
+		} else {
+			res.status(200).end();
+		}
+	});
+}
+
+/* Update post */
+function updatePost(res, post) {
+	Post.update({'_id' : post._id}, {$set : post}, function(err) {
+		if (err) {
+			res.status(500).send('Database Error');
+		} else {
+			res.status(200).end();
+		}
+	});
 }
